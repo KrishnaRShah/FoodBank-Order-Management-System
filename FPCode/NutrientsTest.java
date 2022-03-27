@@ -35,7 +35,7 @@ public interface NutrientsTest {
             correctException = true;
         }
 
-        assertEquals("Nutrients constructor did not throw an IllegalArgumentException when given an invalid log string: ", true, correctException);        
+        assertEquals("Nutrients constructor did not throw an IllegalArgumentException when given an invalid input", true, correctException);        
     }
 
     //test getter for grains
@@ -50,7 +50,7 @@ public interface NutrientsTest {
     @Test
     public void testGetFRUITS() {
         Nutrients fourth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundFRUITS=third.getFRUITS();
+        double foundFRUITS=fourth.getFRUITS();
         double expectedFRUITS=fruitsPercent*totalCalories/100.0;
         assertEquals("Method getFRUITS did not return the expected result: ", expectedFRUITS, foundFRUITS);
     }  
@@ -58,7 +58,7 @@ public interface NutrientsTest {
     @Test
     public void testGetMEATS() {
         Nutrients fifth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundMEATS=third.getMEATS();
+        double foundMEATS=fifth.getMEATS();
         double expectedMEATS=meatsPercent*totalCalories/100.0;
         assertEquals("Method getMEATS did not return the expected result: ", expectedMEATS, foundMEATS);
     }
@@ -66,7 +66,7 @@ public interface NutrientsTest {
     @Test
     public void testGetOTHER() {
         Nutrients sixth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundOTHER=third.getOTHER();
+        double foundOTHER=sixth.getOTHER();
         double expectedOTHER=otherPercent*totalCalories/100.0;
         assertEquals("Method getFRUITS did not return the expected result: ", expectedOTHER, foundOTHER);
     }    
@@ -74,7 +74,7 @@ public interface NutrientsTest {
     //test getter for total calories
     public void testGetTOTAL_CALORIES() {
         Nutrients seventh = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundCALS=third.getTOTAL_CALORIES();
+        double foundCALS=seventh.getTOTAL_CALORIES();
         double expectedCALS=totalCalories;
         assertEquals("Method getTOTAL_CALORIES did not return the expected result: ", expectedCALS, foundCALS);
     }  
