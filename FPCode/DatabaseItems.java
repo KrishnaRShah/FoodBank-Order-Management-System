@@ -1,3 +1,10 @@
+/*
+@author Ryan Mailhiot 30080009<a
+href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
+@version 0.3 
+@since 0.0
+*/
+
 package FPCode;
 
 import java.sql.*;
@@ -77,5 +84,6 @@ public class DatabaseItems {
     public Items getLargestItem(String type) { // THIS WILL BE COMPLETED ONCE NUTRIENT CLASS IS MADE
         return null;
     }
+    // Update
 
 }

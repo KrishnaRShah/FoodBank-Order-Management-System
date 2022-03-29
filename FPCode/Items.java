@@ -1,3 +1,10 @@
+/*
+@author Ryan Mailhiot 30080009<a
+href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
+@version 0.1 
+@since 0.0
+*/
+
 package FPCode;
 
 public class Items {
