@@ -13,9 +13,9 @@ import java.util.Vector;
 public class DatabaseItems {
     private final int SIZE_VECTOR = 20;
     private final int INCREMENT_VECTOR = 10;
-    public final String DBURL = "jdbc:mysql://localhost/food_inventory";
-    public final String USERNAME = "student";
-    public final String PASSWORD = "ensf"; 
+    private final String DBURL = "jdbc:mysql://localhost/food_inventory";
+    private final String USERNAME = "student";
+    private final String PASSWORD = "ensf"; 
     private static Vector<Items> databaseItems;
     private Connection dbConnect;
 
@@ -68,13 +68,15 @@ public class DatabaseItems {
 
                 int updateCheck = myStmt.executeUpdate();
                 if (updateCheck != 1) {
-                    throw new SQLException();
+                    throw new IllegalArgumentException();
                 } else {
                     updateCheck = 0;
                 }
                 myStmt.clearParameters();
             }
             myStmt.close();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Line does not exist");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,4 +88,18 @@ public class DatabaseItems {
     }
     // Update
 
+    public Items getLargestItemUnder(String type, int calories){
+        return null;
+    }
+
+    public Items getSmallestItemOver(String type, int calories){
+        return null;
+    }
+
+    public static Items[] getDatabaseItems (){
+        return (Items[])databaseItems.toArray();
+    }
+
 }
+
+
