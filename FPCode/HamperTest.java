@@ -9,6 +9,18 @@ public class HamperTest {
     @Test
     public void testHamperConstructor(){
 
+        boolean exceptionThrown = false;
+        int[] testArray = {1,2,3,4};
+
+        try{
+            Hamper testHamper = new Hamper(testArray);
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+
+        assertFalse("An exception was thrown when attempting to create a Client.", exceptionThrown);
+
     }
 
     @Test
@@ -36,7 +48,7 @@ public class HamperTest {
 
     }
     @Test
-    
+
     public void testgetDaysNeeded(){
 
     }
