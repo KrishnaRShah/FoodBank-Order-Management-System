@@ -39,7 +39,7 @@ public class OrderTest {
             testHamper = testOrder.getHampterAtIndex(0);
         }
         catch (Exception e){
-
+            exceptionThrown = true;
         }
         assertEquals("Hamper did not return the correct value.", testHamper, correctHamper);
 
@@ -48,6 +48,24 @@ public class OrderTest {
 
     @Test
     public void testGetHamper(){
+        Boolean exceptionThrown = true;
+        
+        Order testOrder = new Order(4);
+
+        List<Hamper> correctHamperList = new ArrayList<>();    //Creates hamperList
+        int[] correctClientTypes = {1,2,3,4};                  //Creates clientTypes
+        Hamper correctHamper = new Hamper(correctClientTypes);    //Creates hamper
+        correctHamperList.add(correctHamper);                     //Adds hamper to hamperList
+
+        List<Hamper> testHamperList = new ArrayList<>();    //Creates testhamperList
+
+        try{
+            testHamperList = testOrder.getHamper();
+        }
+        catch (Exception e){
+            exceptionThrown = true;
+        }
+        assertEquals("Hamper did not return the correct value.", testHamperList, correctHamperList);
         
     }
     
