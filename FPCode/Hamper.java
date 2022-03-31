@@ -8,10 +8,32 @@ public class Hamper extends Exception{
     public int daysNeeded;
 
     public Hamper(int[] numClientTypes){
+        
+        for(int i = 0; i < numClientTypes.length; i++){
+            this.clientArray.addElement(new Client(numClientTypes[i], "AM")); //Hard-Coded an client type for now
+        }
+
 
     }
 
     private void calcHamperNutrients(){
+
+        // Creating variables to hold total macro values, which we will average
+        double avgGrains = 0.0;
+        double avgFruits = 0.0;
+        double avgProtein = 0.0;  
+        double avgOther = 0.0;
+        double wholeCalories = 0.0;
+        //Using a for loop to go through the clientArray and add all macro values, for all clients
+        for(int i = 0; i < clientArray.size(); i++){
+            avgGrains = avgGrains + this.clientArray.get(i).getNutrientData().getGrains();
+            avgFruits = avgFruits + this.clientArray.get(i).getNutrientData().getFruits();
+            avgProtein = avgProtein + this.clientArray.get(i).getNutrientData().getProtein();
+            avgOther = avgOther + this.clientArray.get(i).getNutrientData().getOther();
+            wholeCalories = wholeCalories + this.clientArray.get(i).getNutrientData().getTotalCalories();
+        }
+        //creates a Nutrient object that is the average macro's needed for the clientArray and their total calories
+        this.hamperNutrients = new Nutrients(avgGrains/4, avgFruits/4, avgProtein/4, avgOther/4, wholeCalories);
 
     }
 
