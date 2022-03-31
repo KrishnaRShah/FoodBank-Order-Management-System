@@ -12,8 +12,6 @@ public class Hamper extends Exception{
         for(int i = 0; i < numClientTypes.length; i++){
             this.clientArray.addElement(new Client(numClientTypes[i], "AM")); //Hard-Coded an client type for now
         }
-
-
     }
 
     private void calcHamperNutrients(){
@@ -38,25 +36,21 @@ public class Hamper extends Exception{
     }
 
     private void buildItemList() throws NotEnoughFoodException{
+        
 
     }
 
-    public Client[] getClientArray(){
-       
-
+    public Vector<Client> getClientArray(){
+        return this.clientArray;
     }
-
     public Vector<Items> getItemsList(){
         return this.itemsList;
-
     }
     public Nutrients getHamperNutrients(){
         return this.hamperNutrients;
-
     }
     public int getDaysNeeded(){
         return this.daysNeeded;
-
     }
 
     
