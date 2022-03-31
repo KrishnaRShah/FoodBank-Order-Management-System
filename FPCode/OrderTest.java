@@ -9,8 +9,14 @@ public class OrderTest {
     public void testOrderConstructor(){
 
     }
+    
     @Test
-    public void testOrderConstructor(){
+    public void testGetHamperAtIndex(){
+        
+    }
+
+    @Test
+    public void testGetHamper(){
         
     }
     
