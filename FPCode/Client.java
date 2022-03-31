@@ -41,7 +41,6 @@ public class Client {
             default:
                 type = "";
                 throw new IllegalArgumentException();
-                break;
         }
         // no error, so commence forth
         this.CLIENT_ID = id;
