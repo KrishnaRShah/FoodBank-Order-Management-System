@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import javax.xml.namespace.QName;
 
-// not Hamper -- only to test the calc method shit
+// not Hamper -- only to test the calc method stuff
 
 
 class calcHamper{
