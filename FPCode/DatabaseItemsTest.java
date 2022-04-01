@@ -131,7 +131,17 @@ public class DatabaseItemsTest {
         
     }
 
-    // TEST FOR THE DATABASE UPDATE (Delete) AND REFRESH (auto done)
+    @Test 
+    public void testGetDatabaseItems() {
+        dbItems.refreshDatabaseItems();
+        Items[] expectedValue = getItemsList();
+        Items[] actual = dbItems.getDatabaseItems();
+
+        assertEquals("The DB items array did not match the expected items array.", expectedValue, actual);
+
+    }
+
+    // TEST FOR THE DATA<>BASE UPDATE (Delete) AND REFRESH (auto done)
     @Test 
     public Void testUpdateDatabaseAndRefreshDatabaseItems(){
         boolean correctException = false;

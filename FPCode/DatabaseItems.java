@@ -96,8 +96,14 @@ public class DatabaseItems {
         return null;
     }
 
-    public static Items[] getDatabaseItems (){
-        return (Items[])databaseItems.toArray();
+    public Items[] getDatabaseItems (){
+        databaseItems.trimToSize();
+        Items[] temp = (Items[])databaseItems.toArray();
+        Items[] dbItems = new Items[databaseItems.size()];
+        for (int i = 0; i < dbItems.length; i++) {
+            dbItems[i] = temp[i];
+        }
+        return dbItems;
     }
 
 }
