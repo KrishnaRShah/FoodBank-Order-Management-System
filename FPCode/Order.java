@@ -6,7 +6,7 @@ import java.util.List;
 public class Order {
 
     public List<Hamper> hamperList = new ArrayList<>();
-    int[] numClientTypes;
+    public int[] numClientTypes;
 
 
     public Order(int numberOfClients){
