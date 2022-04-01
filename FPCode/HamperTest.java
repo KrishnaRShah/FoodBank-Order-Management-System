@@ -41,7 +41,7 @@ public class HamperTest {
 
     @Test
     public void  testbuildItemList(){
-
+        // literally what
     }
  
     @Test
@@ -61,16 +61,14 @@ public class HamperTest {
     @Test
     public void testgetItemsList(){
 
-        
-
     }
 
     @Test
     public void testgetHamperNutrients(){
-
+        // requires a working testBuilItem
     }
-    @Test
 
+    @Test
     public void testgetDaysNeeded(){
 
     }

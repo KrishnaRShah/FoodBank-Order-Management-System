@@ -2,8 +2,6 @@ package FPCode;
 
 import java.util.Vector;
 
-import javax.xml.namespace.QName;
-
 // not Hamper -- only to test the calc method stuff
 
 

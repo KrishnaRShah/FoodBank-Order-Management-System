@@ -1,7 +1,7 @@
 package FPCode;
 import java.util.*;
 
-public class Hamper extends Exception{
+public class Hamper{
     public Vector<Client> clientArray;
     public Vector<Items> itemsList;
     public Nutrients hamperNutrients;
