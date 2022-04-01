@@ -1,9 +1,9 @@
-package edu.ucalgary.ensf409;
+package FPCode;
 
 import org.junit.Test;
 import org.junit.Assert;
 import static org.junit.Assert.*;
-public interface NutrientsTest {
+public class NutrientsTest {
     //example values for testing purposes
     public double grainsPercent=35;
     public double fruitsPercent=30;
@@ -38,44 +38,58 @@ public interface NutrientsTest {
         assertEquals("Nutrients constructor did not throw an IllegalArgumentException when given an invalid input", true, correctException);        
     }
 
+    @Test 
+    public void testNormalGetsNSets(){
+        Nutrients zeroth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
+        double fgrain = zeroth.getGrains();
+        double ffruit = zeroth.getFruits();
+        double fprot = zeroth.getProtein();
+        double foth = zeroth.getOther();
+        assertEquals("getGrains did not return the correct value.", fgrain, grainsPercent);
+        assertEquals("getFruits did not return the correct value.", ffruit, fruitsPercent);
+        assertEquals("getProtein did not return the correct value.", fprot, meatsPercent);
+        assertEquals("getOther did not return the correct value.", foth, otherPercent);
+    }
+
     //test getter for grains
     @Test
-    public void testGetGRAINS() {
+    public void testGetGrainCals() {
         Nutrients third = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundGRAINS=third.getGRAINS();
+        double foundGRAINS=third.getGrainCals();
         double expectedGRAINS=grainsPercent*totalCalories/100.0;
-        assertEquals("Method getGRAINS did not return the expected result: ", expectedGRAINS, foundGRAINS);
+        assertEquals("Method getGrainCals did not return the expected result: ", expectedGRAINS, foundGRAINS);
     }  
     //test getter for fruits
     @Test
-    public void testGetFRUITS() {
+    public void testGetFruitCals() {
         Nutrients fourth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundFRUITS=fourth.getFRUITS();
+        double foundFRUITS=fourth.getFruitCals();
         double expectedFRUITS=fruitsPercent*totalCalories/100.0;
-        assertEquals("Method getFRUITS did not return the expected result: ", expectedFRUITS, foundFRUITS);
+        assertEquals("Method getFruitCals did not return the expected result: ", expectedFRUITS, foundFRUITS);
     }  
     //test getter for meats
     @Test
-    public void testGetMEATS() {
+    public void testGetProteinCals() {
         Nutrients fifth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundMEATS=fifth.getMEATS();
+        double foundMEATS=fifth.getProtein();
         double expectedMEATS=meatsPercent*totalCalories/100.0;
-        assertEquals("Method getMEATS did not return the expected result: ", expectedMEATS, foundMEATS);
+        assertEquals("Method getProteinCals did not return the expected result: ", expectedMEATS, foundMEATS);
     }
     //test getter for other
     @Test
-    public void testGetOTHER() {
+    public void testGetOtherCals() {
         Nutrients sixth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundOTHER=sixth.getOTHER();
+        double foundOTHER=sixth.getOtherCals();
         double expectedOTHER=otherPercent*totalCalories/100.0;
-        assertEquals("Method getFRUITS did not return the expected result: ", expectedOTHER, foundOTHER);
+        assertEquals("Method getOtherCals did not return the expected result: ", expectedOTHER, foundOTHER);
     }    
     @Test
     //test getter for total calories
-    public void testGetTOTAL_CALORIES() {
+    public void testGetTotalCals() {
         Nutrients seventh = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
-        double foundCALS=seventh.getTOTAL_CALORIES();
+        double foundCALS=seventh.getTotalCalories();
         double expectedCALS=totalCalories;
-        assertEquals("Method getTOTAL_CALORIES did not return the expected result: ", expectedCALS, foundCALS);
+        assertEquals("Method getTotalCalories did not return the expected result: ", expectedCALS, foundCALS);
     }  
+
 }
