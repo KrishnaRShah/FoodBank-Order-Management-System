@@ -3,13 +3,16 @@ package FPCode;
 import org.junit.Test;
 import org.junit.Assert;
 import static org.junit.Assert.*;
+
 public class NutrientsTest {
+
     //example values for testing purposes
     public double grainsPercent=35;
     public double fruitsPercent=30;
     public double meatsPercent=20;
     public double otherPercent=15;
     public double totalCalories=1500;
+
     //example value for grains to test whether an exception will be thrown
     public double badGrainsPercent=40;
 
@@ -40,6 +43,7 @@ public class NutrientsTest {
 
     @Test 
     public void testNormalGetsNSets(){
+        // return percentages
         Nutrients zeroth = new Nutrients(grainsPercent,fruitsPercent,meatsPercent,otherPercent,totalCalories);
         double fgrain = zeroth.getGrains();
         double ffruit = zeroth.getFruits();
