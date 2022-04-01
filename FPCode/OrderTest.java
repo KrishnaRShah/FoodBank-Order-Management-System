@@ -68,5 +68,25 @@ public class OrderTest {
         assertEquals("Hamper did not return the correct value.", testHamperList, correctHamperList);
         
     }
+
+    // The following tests will come from the interface Output.
+    @Test 
+    public void testFormatString(){
+        // This will compare the a test formatted string to the result and see if they match. 
+    }
+
+    @Test 
+    public void testPrintToTXT(){
+        // this will test the method and make sure it functions, then it will test to see if a file was created, and if it is empty.
+    }
+
+    @Test 
+    public void testPrintError(){
+        // this will identify a "print error" thrown by hamper into order. This should not throw the error with good data.
+    }
     
+    @Test 
+    public void testPrintErrorBadData(){
+        // this will identify a "print error" thrown by hamper into order. This should throw the error. 
+    }
 }
