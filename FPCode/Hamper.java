@@ -14,7 +14,7 @@ public class Hamper extends Exception{
         }
     }
 
-    private void calcHamperNutrients(){
+    public void calcHamperNutrients(){
 
         // Creating variables to hold total macro values, which we will average
         double avgGrains = 0.0;
@@ -35,7 +35,7 @@ public class Hamper extends Exception{
 
     }
 
-    private void buildItemList() throws NotEnoughFoodException{
+    public void buildItemList() throws NotEnoughFoodException{
         
 
     }

@@ -3,6 +3,8 @@ package FPCode;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.util.Vector;
+
 
 public class HamperTest {
 
@@ -25,6 +27,15 @@ public class HamperTest {
 
     @Test
     public void testcalcHamperNutrients(){
+        int[] testArray = {1,2};
+        Hamper testHamper = new Hamper(testArray);
+
+        Nutrients correctNutrients = new Nutrients(16, 28, 26, 30, 5000);
+        testHamper.calcHamperNutrients();
+
+        Nutrients testNutrients = testHamper.getHamperNutrients();
+
+        assertEquals("calcHamperNutrients returns different data compared to what is expected", correctNutrients, testNutrients);
 
     }
 
@@ -32,14 +43,25 @@ public class HamperTest {
     public void  testbuildItemList(){
 
     }
-
+ 
     @Test
     public void testgetClientArray(){
+        int[] testArray = {1};
+        Hamper testHamper = new Hamper(testArray);
+        Vector<Client> testClientArray = testHamper.getClientArray();
+
+        Vector<Client> expectedClientArray = new Vector<Client>();
+        Client expectedClient = new Client(1, "AM");
+        expectedClientArray.add(expectedClient);
+
+        assertEquals("getClientArray returns different data compared to what is expected", expectedClientArray, testClientArray);
 
     }
     
     @Test
     public void testgetItemsList(){
+
+        
 
     }
 
