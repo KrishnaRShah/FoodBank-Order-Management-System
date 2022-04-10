@@ -31,7 +31,8 @@ public class Hamper{
             wholeCalories = wholeCalories + this.clientArray.get(i).getNutrientData().getTotalCalories();
         }
         //creates a Nutrient object that is the average macro's needed for the clientArray and their total calories
-        this.hamperNutrients = new Nutrients(avgGrains/4, avgFruits/4, avgProtein/4, avgOther/4, wholeCalories);
+        this.hamperNutrients = new Nutrients(avgGrains/(clientArray.size()), avgFruits/(clientArray.size()), 
+            avgProtein/(clientArray.size()), avgOther/(clientArray.size()), wholeCalories);
 
     }
 

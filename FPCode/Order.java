@@ -11,15 +11,17 @@ public class Order {
 
     public Order(int numberOfClients){
 
+        this.hamperList = new ArrayList<>();
+
         this.numClientTypes = new int[numberOfClients];
 
         for(int i = 0; i < numberOfClients; i++){       //Give ID values
             numClientTypes[i] = i+1;
         }
+    }
 
-        Hamper newHamper = new Hamper(numClientTypes);
-
-        this.hamperList.add(newHamper);
+    public void addHamper(Hamper hamper){
+        this.hamperList.add(hamper);
     }
 
     public Hamper getHampterAtIndex(int index){
