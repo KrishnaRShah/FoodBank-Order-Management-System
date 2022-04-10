@@ -1,7 +1,7 @@
 /**
 * @author Ryan Mailhiot 30080009<a
-* href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
-* @version 0.7 
+* href="mailto:ryan.mailhiot@ucalgary.ca ">ryan.mailhiot@ucalgary.ca</a>
+* @version 0.9 
 * @since 0.0
 */
 
@@ -10,6 +10,13 @@ package FPCode;
 import java.sql.*;
 import java.util.Vector;
 
+/**
+ * @author Ryan Mailhiot 30080009 <a
+ * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
+ * This class is designed to interact with the database and create a "Local" vector of databaseItems to access at once. Contains methods to
+ * create a connection to the database, refresh the databaseItems locally, update the database with items to remove, as well as several
+ * search functions for items in the database. 
+ */
 public class DatabaseItems {
     private final int SIZE_VECTOR = 20;
     private final int INCREMENT_VECTOR = 10;
@@ -19,11 +26,20 @@ public class DatabaseItems {
     private static Vector<Items> databaseItems;
     private Connection dbConnect;
 
-
+    /**
+     * Constructor which creates the databaseItems. Uses a base size of 20 and an increment value of 10. Will auto-refresh the database so
+     * there will be items in the vector after the constructor is called. 
+     * @since 0.1
+     */
     protected DatabaseItems(){
         databaseItems = new Vector<Items>(SIZE_VECTOR, INCREMENT_VECTOR);
         refreshDatabaseItems();
     }
+
+    /**
+     * Creates a connection to the SQL database using the URL, USERNAME and PASSWORD. 
+     * @since 0.1
+     */
     public void initializeConnection(){
         try {
             dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
@@ -39,6 +55,7 @@ public class DatabaseItems {
      */
     public void refreshDatabaseItems(){
         // Call to database to return all from the given inventory
+        initializeConnection();
         databaseItems.clear();
         Items itemAdd;
         double[] nutrientsInfo = new double[5];
@@ -57,6 +74,8 @@ public class DatabaseItems {
                 databaseItems.add(itemAdd);
             }
             myStmt.close();
+            results.close();
+            dbConnect.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +90,7 @@ public class DatabaseItems {
      */
     public void updateDatabase(Items[] items){
         // List of items to remove from data base.
+        initializeConnection();
         try {
             String query = "DELETE FROM available_food WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
@@ -86,11 +106,13 @@ public class DatabaseItems {
                 myStmt.clearParameters();
             }
             myStmt.close();
+            dbConnect.close();
         } catch (IllegalArgumentException e) {
             System.out.println("Line does not exist");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         refreshDatabaseItems();
     }
 
