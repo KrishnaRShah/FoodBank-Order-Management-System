@@ -1,7 +1,7 @@
 /**
 * @author Ryan Mailhiot 30080009<a
 * href="mailto:ryan.mailhiot@ucalgary.ca ">ryan.mailhiot@ucalgary.ca</a>
-* @version 0.9 
+* @version 0.11 
 * @since 0.0
 */
 
@@ -25,6 +25,20 @@ public class DatabaseItems {
     private final String PASSWORD = "ensf"; 
     private static Vector<Items> databaseItems;
     private Connection dbConnect;
+
+    // public static void main(String[] args) {
+    //     DatabaseItems dbItems = new DatabaseItems();
+    //     Items testItem = databaseItems.get(0);
+    //     Nutrients testNutrients = testItem.getNutrientData();
+    //     try {
+    //         testItem = dbItems.getSmallestItemOver("fruits", 1000);
+    //     } catch (NoItemExistsException e) {
+    //         System.out.println("No item exists");
+    //         testItem = null;
+    //     }
+    //     System.out.println(testItem.getItemName());
+        
+    // }
 
     /**
      * Constructor which creates the databaseItems. Uses a base size of 20 and an increment value of 10. Will auto-refresh the database so
@@ -70,8 +84,16 @@ public class DatabaseItems {
                 nutrientsInfo[2] = (double)results.getInt("ProContent");
                 nutrientsInfo[3] = (double)results.getInt("Other");
                 nutrientsInfo[4] = (double)results.getInt("Calories");
-                itemAdd = new Items(results.getInt("ItemID"), results.getString("Name"), nutrientsInfo);
-                databaseItems.add(itemAdd);
+                try {
+                    itemAdd = new Items(results.getInt("ItemID"), results.getString("Name"), nutrientsInfo);
+                } catch (IllegalArgumentException e) {
+                    itemAdd = null;
+                }
+                
+                if (itemAdd != null) {
+                    databaseItems.add(itemAdd);
+                }
+                
             }
             myStmt.close();
             results.close();
@@ -127,7 +149,7 @@ public class DatabaseItems {
      */
     public Items getLargestItem(String type) throws IllegalArgumentException, NoItemExistsException { // THIS WILL BE COMPLETED ONCE NUTRIENT CLASS IS MADE
         String selection = type.trim().toLowerCase();
-        double[] zeroed = {0.0, 0.0, 0.0, 0.0, 0.0};
+        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
         Items returnItem = new Items(-1, "Remove Item", zeroed);
         Items testItem;
 
@@ -215,8 +237,9 @@ public class DatabaseItems {
         if (calories < 0) {
             throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
         }
+        System.out.println("test start");
         String selection = type.trim().toLowerCase();
-        double[] zeroed = {0.0, 0.0, 0.0, 0.0, 0.0};
+        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
         Items returnItem = new Items(-1, "Remove Item", zeroed);
         Items testItem;
         switch (selection) {
@@ -266,6 +289,8 @@ public class DatabaseItems {
                     }
                     if (testItem.getNutrientData().getProteinCals() < calories) {
                         if (testItem.getNutrientData().getProteinCals() > returnItem.getNutrientData().getProteinCals()) {
+                            System.out.println(testItem.getItemName());
+                            System.out.println(testItem.getNutrientData().getProteinCals());
                             returnItem = testItem;
                         }
                     }
@@ -313,7 +338,7 @@ public class DatabaseItems {
             throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
         }
         String selection = type.trim().toLowerCase();
-        double[] zeroed = {0.0, 0.0, 0.0, 0.0, 0.0};
+        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 50000000.0};
         Items returnItem = new Items(-1, "Remove Item", zeroed);
         Items testItem;
         switch (selection) {
@@ -343,7 +368,9 @@ public class DatabaseItems {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         return returnItem;
                     }
+                    
                     if (testItem.getNutrientData().getFruitCals() > calories) {
+                        
                         if (testItem.getNutrientData().getFruitCals() < returnItem.getNutrientData().getFruitCals()) {
                             returnItem = testItem;
                         }

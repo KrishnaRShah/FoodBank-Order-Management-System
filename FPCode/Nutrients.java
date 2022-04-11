@@ -17,7 +17,7 @@ public class Nutrients {
 
     Nutrients(double grains, double fruits, double protein, double other, double totalCals){
         if(grains+fruits+protein+other != 100){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Total nutrients does not equal 100");
         }
         this.GRAINS = grains;
         this.FRUITS = fruits;
