@@ -1,0 +1,4 @@
+This location will be the working directory if trying to run from CMD.
+
+Package is FPCode
+
