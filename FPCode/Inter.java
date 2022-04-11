@@ -93,7 +93,9 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             clients[2]=Integer.parseInt(childOver8);
             clients[3]=Integer.parseInt(childUnder8);
             
-            new Hamper(clients);
+            Order orderList = new Order();
+            Hamper newOrderHamper = new Hamper(clients);
+            orderList.addHamper(newOrderHamper);
         }
 
         else{
