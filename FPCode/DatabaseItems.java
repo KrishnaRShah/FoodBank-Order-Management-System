@@ -1,7 +1,7 @@
 /**
 * @author Ryan Mailhiot 30080009<a
 * href="mailto:ryan.mailhiot@ucalgary.ca ">ryan.mailhiot@ucalgary.ca</a>
-* @version 0.11 
+* @version 1.0 
 * @since 0.0
 */
 
@@ -37,7 +37,14 @@ public class DatabaseItems {
     //         testItem = null;
     //     }
     //     System.out.println(testItem.getItemName());
-        
+
+    //     Items[] testArray = new Items[4];
+    //     testArray[0] = databaseItems.get(1);
+    //     testArray[1] = databaseItems.get(2);
+    //     testArray[2] = databaseItems.get(4);
+    //     testArray[3] = databaseItems.get(11);
+    //     dbItems.updateDatabase(testArray);
+    //     testArray = dbItems.getDatabaseItems();
     // }
 
     /**
@@ -117,6 +124,10 @@ public class DatabaseItems {
             String query = "DELETE FROM available_food WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             for (int i = 0; i < items.length; i++) {
+                if (items[i] == null) {
+                    System.out.println("item entered is invalid");
+                    continue;
+                }
                 myStmt.setInt(1, items[i].getItemID());
 
                 int updateCheck = myStmt.executeUpdate();
@@ -432,10 +443,9 @@ public class DatabaseItems {
         This method is extremely jank, but it works to return what we are looking for. Just using the .toArray function broke everything. 
         */
         databaseItems.trimToSize();
-        Items[] temp = (Items[])databaseItems.toArray();
         Items[] dbItems = new Items[databaseItems.size()];
         for (int i = 0; i < dbItems.length; i++) {
-            dbItems[i] = temp[i];
+            dbItems[i] = databaseItems.get(i);
         }
         return dbItems;
     }
