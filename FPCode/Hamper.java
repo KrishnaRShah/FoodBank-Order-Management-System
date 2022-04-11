@@ -1,8 +1,8 @@
 /**
+ * @author Krishna Shah 30114067<a
+ * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
  * @author Danny Picazo 301271082<a
  * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
- * @author German (David) Fonseca 30061209<a
- * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
  * @version 0.6 
  * @since 0.0
  */
@@ -32,14 +32,33 @@ public class Hamper{
      * @param numClientTypes Int array of size 4.
      */
     public Hamper(int[] numClientTypes){
+
+        //iterates through the entire array, which contains the # of each client at a given index
+        //numClientTypes[0] = # of adult males
+        //numClientTypes[1] = # of adult females
+        //numClientTypes[2] = # of child over 8
+        //numClientTypes[3] = # of child under 8
         
-        for(int i = 0; i < numClientTypes.length; i++){
-            this.clientArray.addElement(new Client(numClientTypes[i])); //Hard-Coded an client type for now
+        for(int i = 0; i < numClientTypes.length; i++){ 
+
+            //Add the number of clients needed for that type to the client array
+            //by iterating through the size of the int in the index
+
+            for(int j = 0; j < numClientTypes[i]; j++){ 
+
+                //Creates a new client element with the current i value
+                //i = 0 = AM
+                //i = 1 = AF
+                //i = 2 = CO8
+                //i = 3 = CU8
+                this.clientArray.addElement(new Client(i+1)); 
+            }
         }
+
     }
 
     /**
-     * @author David Fonseca
+     * @author Krishna Shah
      * Calculates the hampers nutrients using the data stored in the clientArray.
      */
     public void calcHamperNutrients(){
