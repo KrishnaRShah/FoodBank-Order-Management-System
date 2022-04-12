@@ -27,7 +27,7 @@ public class Hamper{
     public int daysNeeded;
 
     /**
-     * Constructor for Hamper. Takes in an integer array of size 4 (or atleast reads the first 4 elements) which will be used
+     * GUI's constructor for Hamper. Takes in an integer array of size 4 (or atleast reads the first 4 elements) which will be used
      * to construct clients to be used in the calculation of hamper nutrients. 
      * @param numClientTypes Int array of size 4.
      */
@@ -56,6 +56,29 @@ public class Hamper{
         }
 
     }
+
+    /**
+     * Alternative constructor for use as objects. Will use the argument to fill Nutrients.
+     * @author Danny Picazo
+     * @param listOfItems Vector of Items in the Hamper.
+     */
+    public Hamper(Vector<Items> listOfItems){
+        this.itemsList = listOfItems;
+        double grains = 0;
+        double fruits = 0;
+        double protein = 0;
+        double other = 0;
+        double total = 0;
+        for(Items item : listOfItems){
+            grains += item.getNutrientData().getGrains();
+            fruits += item.getNutrientData().getFruits();
+            protein += item.getNutrientData().getProtein();
+            other += item.getNutrientData().getOther();
+            total += item.getNutrientData().getTotalCalories();
+        }
+        this.hamperNutrients = new Nutrients(grains, fruits, protein, other, total);
+    }
+
 
     /**
      * @author Krishna Shah
@@ -92,10 +115,17 @@ public class Hamper{
         DatabaseItems db = new DatabaseItems();
         Items[] stock = db.getDatabaseItems();
 
+        // set default hamper to something absurd
+        double[] overkill = {25, 25, 25, 25, 999999};
+        Items heartattack = new Items(1, "pure grease", overkill);
+        Vector<Items> death = new Vector<Items>();
+        death.add(heartattack);
+            // will use this.itemsList as best hamper; will change as we go
+        Hamper bestHamper = new Hamper(death);
 
         for (int i = 0; i < stock.length; i++) {
             Vector<Items> combination = new Vector<Items>();
-            buildListHelper(combination, i, stock);
+            buildListHelper(combination, i, stock, bestHamper);
         }
 
         // update database
@@ -106,13 +136,17 @@ public class Hamper{
      * @author Danny Picazo
      * @throws NotEnoughFoodException
      */
-    private void buildListHelper(Vector<Items> current, int index, Items[] stock) throws NotEnoughFoodException{
+    private void buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
+        // i still gotta find the right place in this method
+        // to compare hampers but its midnight and im dying
+        
         current.add(stock[index]);
         
-        // add ?
+        // hamper
+        Hamper temp = new Hamper(current);
 
         for(int i = index+1; i < stock.length; i++){
-            buildListHelper(current, i, stock);
+            buildListHelper(current, i, stock, best);
         }
 
         current.remove(stock[index]);
