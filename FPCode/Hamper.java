@@ -84,12 +84,38 @@ public class Hamper{
     }
 
     /**
-     * INCOMPLETE
+     * @author Danny Picazo
      * @throws NotEnoughFoodException
      */
     public void buildItemList() throws NotEnoughFoodException{
-        
+        // all items currently in the database
+        DatabaseItems db = new DatabaseItems();
+        Items[] stock = db.getDatabaseItems();
 
+
+        for (int i = 0; i < stock.length; i++) {
+            Vector<Items> combination = new Vector<Items>();
+            buildListHelper(combination, i, stock);
+        }
+
+        // update database
+        Items[] items = (Items[]) this.itemsList.toArray();
+        db.updateDatabase(items);
+    }
+    /**
+     * @author Danny Picazo
+     * @throws NotEnoughFoodException
+     */
+    private void buildListHelper(Vector<Items> current, int index, Items[] stock) throws NotEnoughFoodException{
+        current.add(stock[index]);
+        
+        // add ?
+
+        for(int i = index+1; i < stock.length; i++){
+            buildListHelper(current, i, stock);
+        }
+
+        current.remove(stock[index]);
     }
 
     /**
