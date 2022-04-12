@@ -135,6 +135,10 @@ public class Hamper{
     /**
      * @author Danny Picazo
      * @throws NotEnoughFoodException
+     * @param current The current Vector of Items in the recursion process.
+     * @param index The current index of the stock array.
+     * @param stock The list of Items in the database.
+     * @param best The currently best hamper combination. 
      */
     private void buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
         // i still gotta find the right place in this method
@@ -142,8 +146,18 @@ public class Hamper{
         
         current.add(stock[index]);
         
-        // hamper
+        // check if hamper meets requirements
         Hamper temp = new Hamper(current);
+        if(temp.getHamperNutrients().getGrainCals() >= this.hamperNutrients.getGrainCals()
+            && temp.getHamperNutrients().getFruitCals() >= this.hamperNutrients.getFruitCals()
+            && temp.getHamperNutrients().getProteinCals() >= this.hamperNutrients.getProteinCals()
+            && temp.getHamperNutrients().getOtherCals() >= this.hamperNutrients.getOtherCals()){
+                // if it does, then check if its better than current best
+                if(temp.getHamperNutrients().getTotalCalories() < best.getHamperNutrients().getTotalCalories()){
+                    best = temp;
+                }
+        }
+        
 
         for(int i = index+1; i < stock.length; i++){
             buildListHelper(current, i, stock, best);
@@ -151,6 +165,7 @@ public class Hamper{
 
         current.remove(stock[index]);
     }
+
 
     /**
      * Getter for the clientArray
