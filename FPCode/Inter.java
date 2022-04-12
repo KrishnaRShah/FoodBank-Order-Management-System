@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.EventQueue;
 import java.util.regex.*;
+import java.util.ArrayList;
+
 
 public class Inter extends JFrame implements ActionListener, MouseListener {
     public int[] clients=new int[4];
@@ -25,6 +27,11 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     private JTextField maleInput;
     private JTextField childUnder;
     private JTextField childOver;
+
+    private JButton submit;
+    private JButton newOrder;
+
+    public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
 
     public Inter(){
         super("generate hamper");
@@ -50,8 +57,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         childOver.addMouseListener(this);
         childUnder.addMouseListener(this);
 
-        JButton submit=new JButton("submit");
+        submit=new JButton("submit");
         submit.addActionListener(this);
+        newOrder=new JButton("end current order");
+        newOrder.addActionListener(this);
         
         JPanel headerPanel=new JPanel();
         headerPanel.setLayout(new FlowLayout());
@@ -61,6 +70,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
         JPanel submitPanel=new JPanel();
         submitPanel.setLayout(new FlowLayout());
+        JPanel newOrderPanel=new JPanel();
+        newOrderPanel.setLayout(new FlowLayout());
         
         headerPanel.add(inst);
         panel2.add(aFL);
@@ -72,10 +83,12 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         panel2.add(cUL);
         panel2.add(childUnder);
         submitPanel.add(submit);
+        submitPanel.add(newOrder);
 
         this.add(headerPanel,BorderLayout.NORTH);
         this.add(panel2,BorderLayout.CENTER);
-        this.add(submitPanel,BorderLayout.PAGE_END);
+        this.add(submitPanel,BorderLayout.SOUTH);
+        
     }
 
     public void actionPerformed(ActionEvent event){
@@ -86,22 +99,32 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         adultMale=(maleInput.getText());
         childOver8=(childOver.getText());
         childUnder8=(childUnder.getText());
-  
-        if(validateIn()){
-            clients[0]=Integer.parseInt(adultMale);
-            clients[1]=Integer.parseInt(adultFemale);
-            clients[2]=Integer.parseInt(childOver8);
-            clients[3]=Integer.parseInt(childUnder8);
-            
-            Order orderList = new Order();
-            Hamper newOrderHamper = new Hamper(clients);
-            orderList.addHamper(newOrderHamper);
-        }
 
-        else{
-            JOptionPane.showMessageDialog(this,"illegal character entered");
+        if(event.getSource()==submit){
+
+        
+  
+            if(validateIn()){
+                clients[0]=Integer.parseInt(adultMale);
+                clients[1]=Integer.parseInt(adultFemale);
+                clients[2]=Integer.parseInt(childOver8);
+                clients[3]=Integer.parseInt(childUnder8);
+                numberOfHampers.add(clients);
+                System.out.println(clients[0]);
+                System.out.println(clients[1]);
+                System.out.println(clients[2]);
+                System.out.println(clients[3]);
+                
+            }
+  
+            else{
+                JOptionPane.showMessageDialog(this,"illegal character entered");
+            }
         }
-    
+        if(event.getSource()==newOrder){
+            //new Order(numberOfHampers);
+            numberOfHampers.clear();
+        }
     }
 
     private boolean validateIn(){
