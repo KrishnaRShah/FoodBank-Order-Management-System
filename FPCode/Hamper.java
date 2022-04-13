@@ -1,8 +1,8 @@
 /**
+ * @author Krishna Shah 30114067<a
+ * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
  * @author Danny Picazo 301271082<a
  * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
- * @author German (David) Fonseca 30061209<a
- * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
  * @version 0.6 
  * @since 0.0
  */
@@ -27,19 +27,61 @@ public class Hamper{
     public int daysNeeded;
 
     /**
-     * Constructor for Hamper. Takes in an integer array of size 4 (or atleast reads the first 4 elements) which will be used
+     * GUI's constructor for Hamper. Takes in an integer array of size 4 (or atleast reads the first 4 elements) which will be used
      * to construct clients to be used in the calculation of hamper nutrients. 
      * @param numClientTypes Int array of size 4.
      */
     public Hamper(int[] numClientTypes){
+
+        //iterates through the entire array, which contains the # of each client at a given index
+        //numClientTypes[0] = # of adult males
+        //numClientTypes[1] = # of adult females
+        //numClientTypes[2] = # of child over 8
+        //numClientTypes[3] = # of child under 8
         
-        for(int i = 0; i < numClientTypes.length; i++){
-            this.clientArray.addElement(new Client(numClientTypes[i])); //Hard-Coded an client type for now
+        for(int i = 0; i < numClientTypes.length; i++){ 
+
+            //Add the number of clients needed for that type to the client array
+            //by iterating through the size of the int in the index
+
+            for(int j = 0; j < numClientTypes[i]; j++){ 
+
+                //Creates a new client element with the current i value
+                //i = 0 = AM
+                //i = 1 = AF
+                //i = 2 = CO8
+                //i = 3 = CU8
+                this.clientArray.addElement(new Client(i+1)); 
+            }
         }
+
     }
 
     /**
-     * @author David Fonseca
+     * Alternative constructor for use as objects. Will use the argument to fill Nutrients.
+     * @author Danny Picazo
+     * @param listOfItems Vector of Items in the Hamper.
+     */
+    public Hamper(Vector<Items> listOfItems){
+        this.itemsList = listOfItems;
+        double grains = 0;
+        double fruits = 0;
+        double protein = 0;
+        double other = 0;
+        double total = 0;
+        for(Items item : listOfItems){
+            grains += item.getNutrientData().getGrains();
+            fruits += item.getNutrientData().getFruits();
+            protein += item.getNutrientData().getProtein();
+            other += item.getNutrientData().getOther();
+            total += item.getNutrientData().getTotalCalories();
+        }
+        this.hamperNutrients = new Nutrients(grains, fruits, protein, other, total);
+    }
+
+
+    /**
+     * @author Krishna Shah
      * Calculates the hampers nutrients using the data stored in the clientArray.
      */
     public void calcHamperNutrients(){
@@ -65,13 +107,65 @@ public class Hamper{
     }
 
     /**
-     * INCOMPLETE
+     * @author Danny Picazo
      * @throws NotEnoughFoodException
      */
     public void buildItemList() throws NotEnoughFoodException{
+        // all items currently in the database
+        DatabaseItems db = new DatabaseItems();
+        Items[] stock = db.getDatabaseItems();
+
+        // set default hamper to something absurd
+        double[] overkill = {25, 25, 25, 25, 999999};
+        Items heartattack = new Items(1, "pure grease", overkill);
+        Vector<Items> death = new Vector<Items>();
+        death.add(heartattack);
+            // will use this.itemsList as best hamper; will change as we go
+        Hamper bestHamper = new Hamper(death);
+
+        for (int i = 0; i < stock.length; i++) {
+            Vector<Items> combination = new Vector<Items>();
+            buildListHelper(combination, i, stock, bestHamper);
+        }
+
+        // update database
+        Items[] items = (Items[]) this.itemsList.toArray();
+        db.updateDatabase(items);
+    }
+    /**
+     * @author Danny Picazo
+     * @throws NotEnoughFoodException
+     * @param current The current Vector of Items in the recursion process.
+     * @param index The current index of the stock array.
+     * @param stock The list of Items in the database.
+     * @param best The currently best hamper combination. 
+     */
+    private void buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
+        // i still gotta find the right place in this method
+        // to compare hampers but its midnight and im dying
+        
+        current.add(stock[index]);
+        
+        // check if hamper meets requirements
+        Hamper temp = new Hamper(current);
+        if(temp.getHamperNutrients().getGrainCals() >= this.hamperNutrients.getGrainCals()
+            && temp.getHamperNutrients().getFruitCals() >= this.hamperNutrients.getFruitCals()
+            && temp.getHamperNutrients().getProteinCals() >= this.hamperNutrients.getProteinCals()
+            && temp.getHamperNutrients().getOtherCals() >= this.hamperNutrients.getOtherCals()){
+                // if it does, then check if its better than current best
+                if(temp.getHamperNutrients().getTotalCalories() < best.getHamperNutrients().getTotalCalories()){
+                    best = temp;
+                }
+        }
         
 
+        for(int i = index+1; i < stock.length; i++){
+            buildListHelper(current, i, stock, best);
+        }
+
+        current.remove(stock[index]);
     }
+
 
     /**
      * Getter for the clientArray
