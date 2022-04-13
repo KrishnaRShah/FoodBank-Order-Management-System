@@ -152,11 +152,10 @@ public class Hamper{
      * @param index The current index of the stock array.
      * @param stock The list of Items in the database.
      * @param best The currently best hamper combination. 
+     * @return The best combination from that recursion. 
      */
     private Hamper buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
-        // i still gotta find the right place in this method
-        // to compare hampers but its midnight and im dying
-        
+        // add item from stock
         current.add(stock[index]);
         
         // check if hamper meets requirements
@@ -174,7 +173,6 @@ public class Hamper{
                     return best;
                 }
         }
-        
 
         for(int i = index+1; i < stock.length; i++){
             best = buildListHelper(current, i, stock, best);
