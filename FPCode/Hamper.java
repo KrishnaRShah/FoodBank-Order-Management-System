@@ -169,11 +169,15 @@ public class Hamper{
                 if(temp.getHamperNutrients().getTotalCalories() < best.getHamperNutrients().getTotalCalories()){
                     best = temp;
                 }
+                else{
+                    current.remove(stock[index]);
+                    return best;
+                }
         }
         
 
         for(int i = index+1; i < stock.length; i++){
-            buildListHelper(current, i, stock, best);
+            best = buildListHelper(current, i, stock, best);
         }
 
         current.remove(stock[index]);
