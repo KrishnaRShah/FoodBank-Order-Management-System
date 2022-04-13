@@ -120,13 +120,26 @@ public class Hamper{
         Items heartattack = new Items(1, "pure grease", overkill);
         Vector<Items> death = new Vector<Items>();
         death.add(heartattack);
-            // will use this.itemsList as best hamper; will change as we go
         Hamper bestHamper = new Hamper(death);
+        Hamper[] bestHampers = new Hamper[stock.length];
 
+        // make all possible hampers
         for (int i = 0; i < stock.length; i++) {
             Vector<Items> combination = new Vector<Items>();
-            buildListHelper(combination, i, stock, bestHamper);
+            bestHamper = buildListHelper(combination, i, stock, bestHamper);
+            // save all the best hampers
+            bestHampers[i] = bestHamper;
         }
+
+        // from best hampers, choose the best
+        for(Hamper h : bestHampers){
+            if(h.getHamperNutrients().getTotalCalories() < bestHamper.getHamperNutrients().getTotalCalories()){
+                bestHamper = h;
+            }
+        }
+
+        // save best hamper item combo to this.itemsList
+        this.itemsList = bestHamper.getItemsList();
 
         // update database
         Items[] items = (Items[]) this.itemsList.toArray();
@@ -140,7 +153,7 @@ public class Hamper{
      * @param stock The list of Items in the database.
      * @param best The currently best hamper combination. 
      */
-    private void buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
+    private Hamper buildListHelper(Vector<Items> current, int index, Items[] stock, Hamper best) throws NotEnoughFoodException{
         // i still gotta find the right place in this method
         // to compare hampers but its midnight and im dying
         
@@ -164,6 +177,8 @@ public class Hamper{
         }
 
         current.remove(stock[index]);
+
+        return best;
     }
 
 
