@@ -23,7 +23,7 @@ public class DatabaseItems {
     private final String DBURL = "jdbc:mysql://localhost/food_inventory";
     private final String USERNAME = "student";
     private final String PASSWORD = "ensf"; 
-    private static Vector<Items> databaseItems;
+    private Vector<Items> databaseItems;
     private Connection dbConnect;
 
     // public static void main(String[] args) {
@@ -132,7 +132,7 @@ public class DatabaseItems {
 
                 int updateCheck = myStmt.executeUpdate();
                 if (updateCheck != 1) {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("Entry doesnt exist");
                 } else {
                     updateCheck = 0;
                 }
@@ -149,289 +149,288 @@ public class DatabaseItems {
         refreshDatabaseItems();
     }
 
-    /**
-     * Returns an object of type "Items" in which the item contains the most calories from a given "type" that gets input.
-     * @param type Is either grains, fruits, protein or other. Selects the category in which you are trying to find the item with the most
-     * calories from.
-     * @return Items object
-     * @throws IllegalArgumentException if the string type is not one of the 4 listed options. 
-     * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
-     * @since 0.5
-     */
-    public Items getLargestItem(String type) throws IllegalArgumentException, NoItemExistsException { // THIS WILL BE COMPLETED ONCE NUTRIENT CLASS IS MADE
-        String selection = type.trim().toLowerCase();
-        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
-        Items returnItem = new Items(-1, "Remove Item", zeroed);
-        Items testItem;
+    // Commenting out the logic parts because they may be used later and it was typed out, but we decided to go with a different approach. 
 
-        switch (selection) {
-            case "grains":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getGrainCals() > returnItem.getNutrientData().getGrainCals()) {
-                        returnItem = testItem;
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    // /**
+    //  * Returns an object of type "Items" in which the item contains the most calories from a given "type" that gets input.
+    //  * @param type Is either grains, fruits, protein or other. Selects the category in which you are trying to find the item with the most
+    //  * calories from.
+    //  * @return Items object
+    //  * @throws IllegalArgumentException if the string type is not one of the 4 listed options. 
+    //  * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
+    //  * @since 0.5
+    //  */
+    // public Items getLargestItem(String type) throws IllegalArgumentException, NoItemExistsException { // THIS WILL BE COMPLETED ONCE NUTRIENT CLASS IS MADE
+    //     String selection = type.trim().toLowerCase();
+    //     double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
+    //     Items returnItem = new Items(-1, "Remove Item", zeroed);
+    //     Items testItem;
 
-            case "fruits":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getFruitCals() > returnItem.getNutrientData().getFruitCals()) {
-                        returnItem = testItem;
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //     switch (selection) {
+    //         case "grains":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getGrainCals() > returnItem.getNutrientData().getGrainCals()) {
+    //                     returnItem = testItem;
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
+
+    //         case "fruits":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getFruitCals() > returnItem.getNutrientData().getFruitCals()) {
+    //                     returnItem = testItem;
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "protein":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getProteinCals() > returnItem.getNutrientData().getProteinCals()) {
-                        returnItem = testItem;
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "protein":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getProteinCals() > returnItem.getNutrientData().getProteinCals()) {
+    //                     returnItem = testItem;
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "other":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getOtherCals() > returnItem.getNutrientData().getOtherCals()) {
-                        returnItem = testItem;
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "other":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getOtherCals() > returnItem.getNutrientData().getOtherCals()) {
+    //                     returnItem = testItem;
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            default:
-                throw new IllegalArgumentException("In getLargestItem, all case values failed to identify");
-        }
-    }
+    //         default:
+    //             throw new IllegalArgumentException("In getLargestItem, all case values failed to identify");
+    //     }
+    // }
     
-    /**
-     * Returns an object of type "Items" which contains the most calories under a certain threshold "calories" from a given 
-     * "type" of calories. 
-     * @param type String of either grains, fruits, protein or other.
-     * @param calories Int in which the number of calories from a given type will be under. Can be 0 but will not function in that case.
-     * @return Items object
-     * @throws IllegalArgumentException if the input calories is a negative number, or the string type is not one of the 4 listed options. 
-     * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
-     * @since 0.6
-     */
-    public Items getLargestItemUnder(String type, int calories) throws IllegalArgumentException, NoItemExistsException{
-        if (calories < 0) {
-            throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
-        }
-        System.out.println("test start");
-        String selection = type.trim().toLowerCase();
-        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
-        Items returnItem = new Items(-1, "Remove Item", zeroed);
-        Items testItem;
-        switch (selection) {
-            case "grains":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getGrainCals() < calories) {
-                        if (testItem.getNutrientData().getGrainCals() > returnItem.getNutrientData().getGrainCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
+    // /**
+    //  * Returns an object of type "Items" which contains the most calories under a certain threshold "calories" from a given 
+    //  * "type" of calories. 
+    //  * @param type String of either grains, fruits, protein or other.
+    //  * @param calories Int in which the number of calories from a given type will be under. Can be 0 but will not function in that case.
+    //  * @return Items object
+    //  * @throws IllegalArgumentException if the input calories is a negative number, or the string type is not one of the 4 listed options. 
+    //  * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
+    //  * @since 0.6
+    //  */
+    // public Items getLargestItemUnder(String type, int calories) throws IllegalArgumentException, NoItemExistsException{
+    //     if (calories < 0) {
+    //         throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
+    //     }
+    //     String selection = type.trim().toLowerCase();
+    //     double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
+    //     Items returnItem = new Items(-1, "Remove Item", zeroed);
+    //     Items testItem;
+    //     switch (selection) {
+    //         case "grains":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getGrainCals() < calories) {
+    //                     if (testItem.getNutrientData().getGrainCals() > returnItem.getNutrientData().getGrainCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
 
-                return returnItem;
+    //             return returnItem;
 
-            case "fruits":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getFruitCals() < calories) {
-                        if (testItem.getNutrientData().getFruitCals() > returnItem.getNutrientData().getFruitCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "fruits":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getFruitCals() < calories) {
+    //                     if (testItem.getNutrientData().getFruitCals() > returnItem.getNutrientData().getFruitCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "protein":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getProteinCals() < calories) {
-                        if (testItem.getNutrientData().getProteinCals() > returnItem.getNutrientData().getProteinCals()) {
-                            System.out.println(testItem.getItemName());
-                            System.out.println(testItem.getNutrientData().getProteinCals());
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "protein":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getProteinCals() < calories) {
+    //                     if (testItem.getNutrientData().getProteinCals() > returnItem.getNutrientData().getProteinCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "other":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getOtherCals() < calories) {
-                        if (testItem.getNutrientData().getOtherCals() > returnItem.getNutrientData().getOtherCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "other":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getOtherCals() < calories) {
+    //                     if (testItem.getNutrientData().getOtherCals() > returnItem.getNutrientData().getOtherCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            default:
-                throw new IllegalArgumentException("In getLargestItemUnder, all case values failed to identify");
-        }
-    }
+    //         default:
+    //             throw new IllegalArgumentException("In getLargestItemUnder, all case values failed to identify");
+    //     }
+    // }
 
-    /**
-     * Returns an object of type "Items" which contains the least amount of calories over a certain threshold "calories" from a given 
-     * "type" of calories.
-     * @param type String of either grains, fruits, protein or other.
-     * @param calories Int in which the number of calories from a given type will be under. Can be 0 but will not function in that case.
-     * @return Items object
-     * @throws IllegalArgumentException if the input calories is a negative number, or the string type is not one of the 4 listed options. 
-     * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
-     * @since 0.7
-     */
-    public Items getSmallestItemOver(String type, int calories) throws IllegalArgumentException, NoItemExistsException{
-        if (calories < 0) {
-            throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
-        }
-        String selection = type.trim().toLowerCase();
-        double[] zeroed = {25.0, 25.0, 25.0, 25.0, 50000000.0};
-        Items returnItem = new Items(-1, "Remove Item", zeroed);
-        Items testItem;
-        switch (selection) {
-            case "grains":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getGrainCals() > calories) {
-                        if (testItem.getNutrientData().getGrainCals() < returnItem.getNutrientData().getGrainCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
+    // /**
+    //  * Returns an object of type "Items" which contains the least amount of calories over a certain threshold "calories" from a given 
+    //  * "type" of calories.
+    //  * @param type String of either grains, fruits, protein or other.
+    //  * @param calories Int in which the number of calories from a given type will be under. Can be 0 but will not function in that case.
+    //  * @return Items object
+    //  * @throws IllegalArgumentException if the input calories is a negative number, or the string type is not one of the 4 listed options. 
+    //  * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
+    //  * @since 0.7
+    //  */
+    // public Items getSmallestItemOver(String type, int calories) throws IllegalArgumentException, NoItemExistsException{
+    //     if (calories < 0) {
+    //         throw new IllegalArgumentException("in getLargestItemUnder, calories was a negative number");
+    //     }
+    //     String selection = type.trim().toLowerCase();
+    //     double[] zeroed = {25.0, 25.0, 25.0, 25.0, 50000000.0};
+    //     Items returnItem = new Items(-1, "Remove Item", zeroed);
+    //     Items testItem;
+    //     switch (selection) {
+    //         case "grains":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getGrainCals() > calories) {
+    //                     if (testItem.getNutrientData().getGrainCals() < returnItem.getNutrientData().getGrainCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
 
-                return returnItem;
+    //             return returnItem;
 
-            case "fruits":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
+    //         case "fruits":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
                     
-                    if (testItem.getNutrientData().getFruitCals() > calories) {
+    //                 if (testItem.getNutrientData().getFruitCals() > calories) {
                         
-                        if (testItem.getNutrientData().getFruitCals() < returnItem.getNutrientData().getFruitCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //                     if (testItem.getNutrientData().getFruitCals() < returnItem.getNutrientData().getFruitCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "protein":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getProteinCals() > calories) {
-                        if (testItem.getNutrientData().getProteinCals() < returnItem.getNutrientData().getProteinCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "protein":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getProteinCals() > calories) {
+    //                     if (testItem.getNutrientData().getProteinCals() < returnItem.getNutrientData().getProteinCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            case "other":
-                for (int i = 0; i < databaseItems.size(); i++) {
-                    try {
-                        testItem = databaseItems.get(i);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return returnItem;
-                    }
-                    if (testItem.getNutrientData().getOtherCals() > calories) {
-                        if (testItem.getNutrientData().getOtherCals() < returnItem.getNutrientData().getOtherCals()) {
-                            returnItem = testItem;
-                        }
-                    }
-                }
-                if (returnItem.getItemID() == -1) {
-                    throw new NoItemExistsException();
-                }
-                return returnItem;
+    //         case "other":
+    //             for (int i = 0; i < databaseItems.size(); i++) {
+    //                 try {
+    //                     testItem = databaseItems.get(i);
+    //                 } catch (ArrayIndexOutOfBoundsException e) {
+    //                     return returnItem;
+    //                 }
+    //                 if (testItem.getNutrientData().getOtherCals() > calories) {
+    //                     if (testItem.getNutrientData().getOtherCals() < returnItem.getNutrientData().getOtherCals()) {
+    //                         returnItem = testItem;
+    //                     }
+    //                 }
+    //             }
+    //             if (returnItem.getItemID() == -1) {
+    //                 throw new NoItemExistsException();
+    //             }
+    //             return returnItem;
         
-            default:
-                throw new IllegalArgumentException("In getLargestItemUnder, all case values failed to identify");
-        }
-    }
+    //         default:
+    //             throw new IllegalArgumentException("In getLargestItemUnder, all case values failed to identify");
+    //     }
+    // }
 
     /**
      * Getter function to return the Database Items too an array. 
