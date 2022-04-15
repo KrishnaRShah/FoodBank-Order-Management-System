@@ -122,7 +122,7 @@ public class Hamper{
 
         // set default hamper to something absurd
         double[] overkill = {25, 25, 25, 25, 999999};
-        Items heartattack = new Items(1, "pure grease", overkill);
+        Items heartattack = new Items(-1, "pure grease", overkill);
         Vector<Items> death = new Vector<Items>();
         death.add(heartattack);
         Hamper bestHamper = new Hamper(death);
