@@ -131,13 +131,18 @@ public class Hamper{
             bestHampers[i] = bestHamper;
         }
 
-        // from best hampers, choose the best
-        for(Hamper h : bestHampers){
-            if(h.getHamperNutrients().getTotalCalories() < bestHamper.getHamperNutrients().getTotalCalories()){
-                bestHamper = h;
+        try {
+            // from best hampers, choose the best
+            for(Hamper h : bestHampers){
+                if(h.getHamperNutrients().getTotalCalories() < bestHamper.getHamperNutrients().getTotalCalories()){
+                    bestHamper = h;
+                }
             }
+        } catch (NullPointerException e) {
+            // bestHampers is empty?
+            throw new NotEnoughFoodException();
         }
-
+        
         // save best hamper item combo to this.itemsList
         this.itemsList = bestHamper.getItemsList();
 
