@@ -80,4 +80,4 @@ VALUES
 ('Trail mix, 1 kg', 21, 0, 20, 59, 6000), 
 ('Soy protein, 1 kg', 0, 0, 88, 12, 3350), 
 ('Turkey, whole', 0, 0, 23, 77, 5752), 
-('Mixed nuts, 1 kg', 0, 0, 23, 77, 6000), 
+('Mixed nuts, 1 kg', 0, 0, 23, 77, 6000);
