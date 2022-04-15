@@ -174,12 +174,15 @@ public class Hamper{
                 }
         }
 
+        // recurse through the indices
         for(int i = index+1; i < stock.length; i++){
             best = buildListHelper(current, i, stock, best);
         }
 
+        // remove item from the stock
         current.remove(stock[index]);
 
+        // return what the best was
         return best;
     }
 
