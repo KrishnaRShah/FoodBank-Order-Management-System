@@ -55,6 +55,7 @@ public class Client {
      * Over 8 years old, 4 is Child under 8 years old.
      */
     public Client(int id){
+
         if(id < 1 || id > 4){
             throw new IllegalArgumentException("Client ID is invalid.");
         }
@@ -65,6 +66,7 @@ public class Client {
             case 1:
                 this.CLIENT_ID = id;
                 this.CLIENT_TYPE = ClientType.ADULTMALE.typeAsString();
+
                 break;
 
             case 2:
@@ -89,8 +91,11 @@ public class Client {
         }
 
         try {
-            String query = "SELECT FROM daily_client_needs WHERE ClientID = ?";
+            
+            String query = "SELECT * FROM daily_client_needs WHERE ClientID = ?";
+
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
+            
             myStmt.setInt(1, id);
             ResultSet results = myStmt.executeQuery();
             
@@ -99,12 +104,14 @@ public class Client {
                 (double)results.getInt("FruitVeggies"), (double)results.getInt("Protein"),
                 (double)results.getInt("Other"), (double)results.getInt("Calories"));
             }
+            
             myStmt.close();
             results.close();
             close();
         } catch (Exception e) {
-            e.printStackTrace(); // THIS NEEDS TO BE CHANGED BECAUSE WE NEED TO BE ABLE TO INTERNALLY HANDLE ERRORS
+            System.out.println("Error in Client Constructor");
         }
+
     }
 
 

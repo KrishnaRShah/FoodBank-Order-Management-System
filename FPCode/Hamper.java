@@ -32,6 +32,7 @@ public class Hamper{
      * @param numClientTypes Int array of size 4.
      */
     public Hamper(int[] numClientTypes){
+        this.clientArray = new Vector<Client>();
 
         //iterates through the entire array, which contains the # of each client at a given index
         //numClientTypes[0] = # of adult males
@@ -51,7 +52,10 @@ public class Hamper{
                 //i = 1 = AF
                 //i = 2 = CO8
                 //i = 3 = CU8
-                this.clientArray.addElement(new Client(i+1)); 
+
+                Client testC = new Client(i+1);
+                this.clientArray.addElement(testC); 
+
             }
         }
 
@@ -85,7 +89,7 @@ public class Hamper{
      * Calculates the hampers nutrients using the data stored in the clientArray.
      */
     public void calcHamperNutrients(){
-
+        System.out.println("Calculates Nutrients");
         // Creating variables to hold total macro values, which we will average
         double avgGrains = 0.0;
         double avgFruits = 0.0;
@@ -111,6 +115,7 @@ public class Hamper{
      * @throws NotEnoughFoodException
      */
     public void buildItemList() throws NotEnoughFoodException{
+        System.out.println("Starts");
         // all items currently in the database
         DatabaseItems db = new DatabaseItems();
         Items[] stock = db.getDatabaseItems();
