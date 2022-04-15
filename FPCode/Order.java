@@ -20,11 +20,18 @@ public class Order {
 
 
     /**
-     * Constructor for Order, this will create a new arraylist that will store multiple hampers
+     * Constructor for Order, this will create a new arraylist, then create a hamper for each index
+     * in the arrayList, and then add the Hamper to the arrayList of Hampers
     */
 
-    public Order(){
+    public Order(ArrayList<int[]> clientArray){
+
         this.hamperList = new ArrayList<>();
+        for(int i = 0; i < clientArray.size(); i++)
+        {
+            Hamper addHamper = new Hamper(clientArray.get(i));
+            this.hamperList.add(addHamper);
+        }
     }
 
     /**
