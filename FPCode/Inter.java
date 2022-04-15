@@ -10,28 +10,28 @@ import java.util.ArrayList;
 
 
 public class Inter extends JFrame implements ActionListener, MouseListener {
-    public int[] clients=new int[4];
+    //static public int[] clients=new int[4];
     
-    private String adultFemale;
-    private String adultMale;
-    private String childOver8;
-    private String childUnder8;
+    static private String adultFemale;
+    static private String adultMale;
+    static private String childOver8;
+    static private String childUnder8;
     
-    private JLabel inst;
-    private JLabel aFL;
-    private JLabel aML;
-    private JLabel cOL;
-    private JLabel cUL;
+    static private JLabel inst;
+    static private JLabel aFL;
+    static private JLabel aML;
+    static private JLabel cOL;
+    static private JLabel cUL;
     
-    private JTextField femaleInput;
-    private JTextField maleInput;
-    private JTextField childUnder;
-    private JTextField childOver;
+    static private JTextField femaleInput;
+    static private JTextField maleInput;
+    static private JTextField childUnder;
+    static private JTextField childOver;
 
-    private JButton submit;
-    private JButton newOrder;
+    static private JButton submit;
+    static private JButton newOrder;
 
-    public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
+    static public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
 
     public Inter(){
         super("generate hamper");
@@ -102,19 +102,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
         if(event.getSource()==submit){
 
-        
-  
             if(validateIn()){
-                clients[0]=Integer.parseInt(adultMale);
-                clients[1]=Integer.parseInt(adultFemale);
-                clients[2]=Integer.parseInt(childOver8);
-                clients[3]=Integer.parseInt(childUnder8);
-                numberOfHampers.add(clients);
-                System.out.println(clients[0]);
-                System.out.println(clients[1]);
-                System.out.println(clients[2]);
-                System.out.println(clients[3]);
-                
+                numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
             }
   
             else{
@@ -122,7 +111,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(event.getSource()==newOrder){
-            //new Order(numberOfHampers);
+            new Order(numberOfHampers);
             numberOfHampers.clear();
         }
     }
