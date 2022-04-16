@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class Order implements Output{
-
+    public ArrayList<int[]>clientsPerHamper=new ArrayList<int[]>();
     public List<Hamper> hamperList = new ArrayList<>();
 
 
@@ -23,9 +23,9 @@ public class Order implements Output{
      * Constructor for Order, this will create a new arraylist, then create a hamper for each index
      * in the arrayList, and then add the Hamper to the arrayList of Hampers
     */
-
+    public Order(){}
     public Order(ArrayList<int[]> clientArray){
-
+         this.clientsPerHamper=clientArray;
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)
         {
@@ -59,30 +59,72 @@ public class Order implements Output{
         return this.hamperList;
     }
     
-    public void printOrder(){
+    public void printError(){ 
+        try{
+        File file1=new File("Order");    
+        FileWriter fw=new FileWriter(file1);
+    PrintWriter pw=new PrintWriter(fw);
+     pw.println("Not enough food");}
+     catch(IOException e){
+        System.err.println("couldn't print to file");
+    }
+        
+}
+    public String formatString(){ return"";}
+    public void printToTXT(){
+        try{
+            File file1=new File("Order");
+        
+            FileWriter fw=new FileWriter(file1);
+        
+            PrintWriter pw=new PrintWriter(fw);
+        
+        pw.println("Original Hamper Request:");
+        for (int k=0;k<hamperList.size();k++){
+            pw.println("hamper ");
+            pw.print(k+1);
+            pw.print(": ");
+            if(clientsPerHamper.get(k)[0]!=0){
+                pw.print("Adult Males: ");
+                pw.print(clientsPerHamper.get(k)[0]);
+            }
+            if(clientsPerHamper.get(k)[1]!=0){
+                pw.print("Adult Females: ");
+                pw.print(clientsPerHamper.get(k)[1]);
+            }
+            if(clientsPerHamper.get(k)[2]!=0){
+                pw.print("Children Over 8: ");
+                pw.print(clientsPerHamper.get(k)[2]);
+            }
+            if(clientsPerHamper.get(k)[3]!=0){
+                pw.print("Children Under 8:");
+                pw.print(clientsPerHamper.get(k)[3]);
+            }
+        }
+            
+    
         for (int i=0;i<hamperList.size();i++){
-            System.out.println("hamper: ");
-            System.out.print(i+1);
-
-            System.out.println("Fruits: ");
-            System.out.print(hamperList.get(i).getHamperNutrients().getFruits());
-
-            System.out.println("Grains: ");
-            System.out.print(hamperList.get(i).getHamperNutrients().getGrains());
-
-            System.out.println("Proteins: ");
-            System.out.print(hamperList.get(i).getHamperNutrients().getProtein());
-
-            System.out.println("Other: ");
-            System.out.print(hamperList.get(i).getHamperNutrients().getOther());
-
-            System.out.println("Total Calories: ");
-            System.out.print(hamperList.get(i).getHamperNutrients().getTotalCalories());
-
+            pw.println("hamper ");
+            pw.print(i+1);
+            pw.print(" Items:");
+            pw.println();
+            for(int j=0;j<hamperList.get(i).getItemsList().size();j++){
+                pw.println(hamperList.get(i).getItemsList().get(j).getItemID());
+                pw.print(",    ");
+                pw.print(hamperList.get(i).getItemsList().get(j).getItemName());
+            }
+          
             System.out.println();
             System.out.println();
 
         }
+        pw.close();
+    }
+    catch(IOException e){
+        System.err.println("couldn't print to file");
+    }
+
+    }
 
     
     
