@@ -1,25 +1,23 @@
-/*
+/** 
 @author Ryan Mailhiot 30080009<a
 href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
-@version 0.1 
-@since 0.0
+@version 1.1 
+@since 0.0 (1.0 is first working version)
 */
 package FPCode;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.io.*;
-import java.util.*;
 
-// OF NOTE: Due to errors with the install of JUNIT, I cannot properly test this file, this is just written up
-// as a skeleton
-
+/**
+ * This is a test class for the file Items.java used in FPCode.
+ */
 public class ItemsTest {
-    public static Double[] dblArray = {25.0, 25.0, 25.0, 25.0, 1000.0};
-    public static Double[] badDblArray = {25.0, 25.0, 30.0, 25.0, 1000.0};
+    public static double[] dblArray = {25.0, 25.0, 25.0, 25.0, 1000.0};
+    public static double[] badDblArray = {25.0, 25.0, 30.0, 25.0, 1000.0};
     
-
-    @test 
+    // Tests the constructor creates a valid item
+    @Test
     public void testItemsConstructorGoodData(){
         boolean testException = false;
         try {
@@ -32,7 +30,8 @@ public class ItemsTest {
         assertNotEquals("Items threw illegalArgumentException for good data from nutrients.", true, testException);
     }
 
-    @test 
+    // Tests that it throws an IllegalArgumentException if the nutrients are not valid. 
+    @Test
     public void testItemsConstructorBadData(){
         boolean testException = false;
         try {
@@ -49,28 +48,58 @@ public class ItemsTest {
     
     public Items testItem = new Items(25, "Twenty Fifth", dblArray); // This is funky without the correct test file structure.
 
-    @test
+    // Tests the getter function for the nutrient data
+    @Test
     public void testGetNutrientData(){
         
         Nutrients expectedData = new Nutrients(dblArray[0], dblArray[1], dblArray[2], dblArray[3], dblArray[4]);
         Nutrients actualData = testItem.getNutrientData();
 
-        assertEquals("getNutrientData returns different data compared to what is expected", expectedData, actualData);
+        assertEquals("getNutrientData returns different data compared to what is expected", true, hasSameProperties(expectedData, actualData));
     }
 
-    @test 
+    // Tests that it gets the correct item id.
+    @Test
     public void testGetItemID(){
         int expectedID = 25;
-        int actualID = testItem.getITEM_ID();
+        int actualID = testItem.getItemID();
 
         assertEquals("getITEM_ID does not return the correct ID", expectedID, actualID);
     }
 
-    @test 
+    // Tests that it gets the correct item name
+    @Test
     public void testGetItem_Name(){
         String expectedName = "Twenty Fifth";
-        String actualName = testItem.getITEM_NAME();
+        String actualName = testItem.getItemName();
 
         assertEquals("getITEM_NAME does not return the correct name", expectedName, actualName);
+    }
+
+    // HELPER FUNCTION
+
+    // Used to determine that all elements of the nutrients are valid.
+    public static boolean hasSameProperties(Nutrients first, Nutrients second){
+        if (first.getGrainCals() != second.getGrainCals()) {
+            return false;
+        }
+        
+        if (first.getFruitCals() != second.getFruitCals()) {
+            return false;
+        }
+
+        if (first.getProteinCals() != second.getProteinCals()) {
+            return false;
+        }
+
+        if (first.getOtherCals() != second.getOtherCals()) {
+            return false;
+        }
+
+        if (first.getTotalCalories() != second.getTotalCalories()) {
+            return false;
+        }
+
+        return true;
     }
 }

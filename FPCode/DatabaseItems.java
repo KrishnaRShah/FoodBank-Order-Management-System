@@ -1,8 +1,8 @@
 /**
 * @author Ryan Mailhiot 30080009<a
 * href="mailto:ryan.mailhiot@ucalgary.ca ">ryan.mailhiot@ucalgary.ca</a>
-* @version 1.0 
-* @since 0.0
+* @version 1.5 
+* @since 0.0 (1.0 is first working version)
 */
 
 package FPCode;
@@ -25,27 +25,6 @@ public class DatabaseItems {
     private final String PASSWORD = "ensf"; 
     private Vector<Items> databaseItems;
     private Connection dbConnect;
-
-    // public static void main(String[] args) {
-    //     DatabaseItems dbItems = new DatabaseItems();
-    //     Items testItem = databaseItems.get(0);
-    //     Nutrients testNutrients = testItem.getNutrientData();
-    //     try {
-    //         testItem = dbItems.getSmallestItemOver("fruits", 1000);
-    //     } catch (NoItemExistsException e) {
-    //         System.out.println("No item exists");
-    //         testItem = null;
-    //     }
-    //     System.out.println(testItem.getItemName());
-
-    //     Items[] testArray = new Items[4];
-    //     testArray[0] = databaseItems.get(1);
-    //     testArray[1] = databaseItems.get(2);
-    //     testArray[2] = databaseItems.get(4);
-    //     testArray[3] = databaseItems.get(11);
-    //     dbItems.updateDatabase(testArray);
-    //     testArray = dbItems.getDatabaseItems();
-    // }
 
     /**
      * Constructor which creates the databaseItems. Uses a base size of 20 and an increment value of 10. Will auto-refresh the database so
@@ -113,9 +92,10 @@ public class DatabaseItems {
     }
     /**
      * This updates the SQL Database by deleting the items in the items array from the database. This will auto-refresh the "on hand" database items
-     * @return null
      * @param items is an array of items that will be removed from the database.
+     * @throws IllegalArgumentException if the ID of the item does not exist in the database.
      * @since 0.3
+     * Updated 1.4
      */
     public void updateDatabase(Items[] items) throws IllegalArgumentException{
         // List of items to remove from data base.
@@ -125,14 +105,17 @@ public class DatabaseItems {
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             for (int i = 0; i < items.length; i++) {
                 if (items[i] == null) {
-                    System.out.println("item entered is invalid");
+                    System.err.println("Null entry in items. Skipping");
                     continue;
+                }
+                if (!checkForItem(items[i].getItemID())) {
+                    throw new IllegalArgumentException("Item is not in database");
                 }
                 myStmt.setInt(1, items[i].getItemID());
 
                 int updateCheck = myStmt.executeUpdate();
                 if (updateCheck != 1) {
-                    throw new IllegalArgumentException("Entry doesnt exist");
+                    throw new IllegalArgumentException("SQL Update was not 1. Input must have been faulty");
                 } else {
                     updateCheck = 0;
                 }
@@ -140,16 +123,15 @@ public class DatabaseItems {
             }
             myStmt.close();
             dbConnect.close();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Line does not exist");
-        } catch (Exception e) {
+        }   
+        catch (SQLException e) {
             e.printStackTrace();
         }
         
         refreshDatabaseItems();
     }
 
-    // Commenting out the logic parts because they may be used later and it was typed out, but we decided to go with a different approach. 
+    // Commenting out the logic parts because there was a different approach to calculating the algorithm. This was typed out and didn't want it to go to waste
 
     // /**
     //  * Returns an object of type "Items" in which the item contains the most calories from a given "type" that gets input.
@@ -160,7 +142,7 @@ public class DatabaseItems {
     //  * @throws NoItemExistsException if there is no item in databaseItems that is under calories for a given type.
     //  * @since 0.5
     //  */
-    // public Items getLargestItem(String type) throws IllegalArgumentException, NoItemExistsException { // THIS WILL BE COMPLETED ONCE NUTRIENT CLASS IS MADE
+    // public Items getLargestItem(String type) throws IllegalArgumentException, NoItemExistsException { 
     //     String selection = type.trim().toLowerCase();
     //     double[] zeroed = {25.0, 25.0, 25.0, 25.0, 0.0};
     //     Items returnItem = new Items(-1, "Remove Item", zeroed);
@@ -447,6 +429,21 @@ public class DatabaseItems {
             dbItems[i] = databaseItems.get(i);
         }
         return dbItems;
+    }
+
+    /**
+     * This is a helper function that checks through the list of items to see if the ID is in the list. 
+     * @param id Int
+     * @return Boolean. if the ID is contained in databaseItems, return true. Else false.
+     * @since 1.4
+     */
+    private boolean checkForItem(int id){
+        for (int i = 0; i < this.databaseItems.size(); i++) {
+            if (id == databaseItems.get(i).getItemID()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
