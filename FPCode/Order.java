@@ -65,15 +65,17 @@ public class Order implements Output{
     
     public void printError(){ 
         try{
-        File file1=new File("Order");    
-        FileWriter fw=new FileWriter(file1);
-    PrintWriter pw=new PrintWriter(fw);
-     pw.println("Not enough food");}
-     catch(IOException e){
+            File file1=new File("Order");    
+            FileWriter fw=new FileWriter(file1);
+            PrintWriter pw=new PrintWriter(fw);
+            pw.println("Not enough food");
+            pw.close();
+        }
+        catch(IOException e){
         System.err.println("couldn't print to file");
-    }
+        }
         
-}
+    }
     public String formatString(){ return"";}
     public void printToTXT(){
         try{
