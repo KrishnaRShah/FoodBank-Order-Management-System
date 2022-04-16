@@ -118,6 +118,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             a.printToTXT();
         }
             catch (NotEnoughFoodException e){
+                System.out.println("SUCCESSFUL ERROR: NotEnoughFoodException was thrown.");
                 Order b=new Order();
                 b.printError();
             }
