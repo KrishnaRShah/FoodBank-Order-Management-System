@@ -111,8 +111,16 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(event.getSource()==newOrder){
-            Order a=new Order(numberOfHampers);
-            a.printOrder();
+
+            Order a;
+            try{
+            a=new Order(numberOfHampers);
+            a.printToTXT();
+        }
+            catch (NotEnoughFoodException e){
+                Order b=new Order();
+                b.printError();
+            }
             numberOfHampers.clear();
         }
     }
