@@ -65,7 +65,7 @@ public class Order implements Output{
     
     public void printError(){ 
         try{
-            File file1=new File("Order");    
+            File file1=new File("Order.txt");    
             FileWriter fw=new FileWriter(file1);
             PrintWriter pw=new PrintWriter(fw);
             pw.println("Not enough food");
@@ -79,7 +79,7 @@ public class Order implements Output{
     public String formatString(){ return"";}
     public void printToTXT(){
         try{
-            File file1=new File("Order");
+            File file1=new File("Order.txt");
         
             FileWriter fw=new FileWriter(file1);
         
@@ -87,7 +87,8 @@ public class Order implements Output{
         
         pw.println("Original Hamper Request:");
         for (int k=0;k<hamperList.size();k++){
-            pw.println("hamper ");
+            pw.println();
+            pw.print("hamper ");
             pw.print(k+1);
             pw.print(": ");
             if(clientsPerHamper.get(k)[0]!=0){
@@ -110,19 +111,18 @@ public class Order implements Output{
             
     
         for (int i=0;i<hamperList.size();i++){
+            pw.println();
+            pw.println();
             pw.println("hamper ");
             pw.print(i+1);
             pw.print(" Items:");
             pw.println();
             for(int j=0;j<hamperList.get(i).getItemsList().size();j++){
-                pw.println(hamperList.get(i).getItemsList().get(j).getItemID());
+                pw.print(hamperList.get(i).getItemsList().get(j).getItemID());
                 pw.print(",    ");
                 pw.print(hamperList.get(i).getItemsList().get(j).getItemName());
+                pw.println();
             }
-          
-            System.out.println();
-            System.out.println();
-
         }
         pw.close();
     }
