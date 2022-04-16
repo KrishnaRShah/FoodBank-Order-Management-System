@@ -31,7 +31,7 @@ public class Hamper{
      * to construct clients to be used in the calculation of hamper nutrients. 
      * @param numClientTypes Int array of size 4.
      */
-    public Hamper(int[] numClientTypes){
+    public Hamper(int[] numClientTypes) {
         this.clientArray = new Vector<Client>();
 
         //iterates through the entire array, which contains the # of each client at a given index
@@ -59,6 +59,19 @@ public class Hamper{
             }
         }
 
+        calcHamperNutrients();
+        // test logging
+        // System.out.println(this.hamperNutrients.getGrainCals());
+        // System.out.println(this.hamperNutrients.getFruitCals());
+        // System.out.println(this.hamperNutrients.getProteinCals());
+        // System.out.println(this.hamperNutrients.getOtherCals());
+        // System.out.println(this.hamperNutrients.getTotalCalories());
+        try {
+            buildItemList();
+        } catch (NotEnoughFoodException e) {
+            System.out.println(" :( ");
+            System.exit(1);
+        }
     }
 
     /**
@@ -74,12 +87,18 @@ public class Hamper{
         double other = 0;
         double total = 0;
         for(Items item : listOfItems){
-            grains += item.getNutrientData().getGrains();
-            fruits += item.getNutrientData().getFruits();
-            protein += item.getNutrientData().getProtein();
-            other += item.getNutrientData().getOther();
+            grains += item.getNutrientData().getGrainCals();
+            fruits += item.getNutrientData().getFruitCals();
+            protein += item.getNutrientData().getProteinCals();
+            other += item.getNutrientData().getOtherCals();
             total += item.getNutrientData().getTotalCalories();
         }
+
+        grains = grains * 100 / total;
+        fruits = fruits * 100 / total;
+        protein = protein * 100 / total;
+        other = other * 100 / total;
+
         this.hamperNutrients = new Nutrients(grains, fruits, protein, other, total);
     }
 
@@ -98,16 +117,30 @@ public class Hamper{
         double wholeCalories = 0.0;
         //Using a for loop to go through the clientArray and add all macro values, for all clients
         for(int i = 0; i < clientArray.size(); i++){
-            avgGrains = avgGrains + this.clientArray.get(i).getNutrientData().getGrains();
-            avgFruits = avgFruits + this.clientArray.get(i).getNutrientData().getFruits();
-            avgProtein = avgProtein + this.clientArray.get(i).getNutrientData().getProtein();
-            avgOther = avgOther + this.clientArray.get(i).getNutrientData().getOther();
+            avgGrains = avgGrains + this.clientArray.get(i).getNutrientData().getGrainCals();
+            avgFruits = avgFruits + this.clientArray.get(i).getNutrientData().getFruitCals();
+            avgProtein = avgProtein + this.clientArray.get(i).getNutrientData().getProteinCals();
+            avgOther = avgOther + this.clientArray.get(i).getNutrientData().getOtherCals();
             wholeCalories = wholeCalories + this.clientArray.get(i).getNutrientData().getTotalCalories();
         }
         //creates a Nutrient object that is the average macro's needed for the clientArray and their total calories
-        this.hamperNutrients = new Nutrients(avgGrains/(clientArray.size()), avgFruits/(clientArray.size()), 
-            avgProtein/(clientArray.size()), avgOther/(clientArray.size()), wholeCalories);
+        // this.hamperNutrients = new Nutrients(avgGrains/(clientArray.size()), avgFruits/(clientArray.size()), 
+        //     avgProtein/(clientArray.size()), avgOther/(clientArray.size()), wholeCalories);
 
+        // convert the temp variables into percentages of the total cals
+        avgGrains = avgGrains * 100 / wholeCalories;
+        avgFruits = avgFruits * 100 / wholeCalories;
+        avgProtein = avgProtein * 100 / wholeCalories;
+        avgOther = avgOther * 100 / wholeCalories;
+
+        // test logging
+        System.out.println(avgGrains);
+        System.out.println(avgFruits);
+        System.out.println(avgProtein);
+        System.out.println(avgOther);
+        System.out.println("---------------------------------------------------");
+        
+        this.hamperNutrients = new Nutrients(avgGrains, avgFruits, avgProtein, avgOther, wholeCalories);
     }
 
     /**
@@ -131,6 +164,7 @@ public class Hamper{
         // make all possible hampers
         for (int i = 0; i < stock.length; i++) {
             Vector<Items> combination = new Vector<Items>();
+            System.out.println("swag " + i);
             bestHamper = buildListHelper(combination, i, stock, bestHamper);
             // save all the best hampers
             bestHampers[i] = bestHamper;
@@ -147,12 +181,34 @@ public class Hamper{
             // bestHampers is empty?
             throw new NotEnoughFoodException();
         }
-        
+
+        // test logging
+        System.out.println("BEST ---- "+bestHamper.getHamperNutrients().getTotalCalories() + " calories");
+        System.out.print("Grains: " + bestHamper.getHamperNutrients().getGrains() + "%, ");
+        System.out.println(bestHamper.getHamperNutrients().getGrainCals() + " Cals");
+        System.out.print("Fruits: " + bestHamper.getHamperNutrients().getFruits() + "%, ");
+        System.out.println(bestHamper.getHamperNutrients().getFruitCals() + " Cals");
+        System.out.print("Protein: " + bestHamper.getHamperNutrients().getProtein() + "%, ");
+        System.out.println(bestHamper.getHamperNutrients().getProteinCals() + " Cals");
+        System.out.print("Other: " + bestHamper.getHamperNutrients().getOther() + "%, ");
+        System.out.println(bestHamper.getHamperNutrients().getOtherCals() + " Cals");
+
         // save best hamper item combo to this.itemsList
         this.itemsList = bestHamper.getItemsList();
+        if(bestHamper.getItemsList().isEmpty()){
+            System.out.println("THE HAMPER ITEM LIST IS EMPTY!!!");
+        }
+        for(Items a : itemsList){
+            System.out.println(a.getItemName());
+        }
 
         // update database
-        Items[] items = (Items[]) this.itemsList.toArray();
+        Items[] items = new Items[this.itemsList.size()];
+        int i = 0;
+        for(Items it : this.itemsList){
+            items[i] = it;
+            i++;
+        }
         db.updateDatabase(items);
     }
     /**
@@ -177,6 +233,7 @@ public class Hamper{
                 // if it does, then check if its better than current best
                 if(temp.getHamperNutrients().getTotalCalories() < best.getHamperNutrients().getTotalCalories()){
                     best = temp;
+                    System.out.println("found a new best!");
                 }
                 else{
                     current.remove(stock[index]);
@@ -189,7 +246,7 @@ public class Hamper{
             best = buildListHelper(current, i, stock, best);
         }
 
-        // remove item from the stock
+        // remove item from the hamper
         current.remove(stock[index]);
 
         // return what the best was

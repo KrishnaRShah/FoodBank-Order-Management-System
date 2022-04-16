@@ -16,9 +16,15 @@ public class Nutrients {
     // }
 
     Nutrients(double grains, double fruits, double protein, double other, double totalCals){
-        if(grains+fruits+protein+other != 100){
+        // in the case of total percentage being like 99.999~ or so
+        int tot = (int) Math.round(grains+fruits+protein+other);
+        // System.out.println("TOTAL AHUDHWAJHDAWJH: " + tot);
+
+        // check if the percentages add up to 100
+        if(tot != 100){
             throw new IllegalArgumentException("Total nutrients does not equal 100");
         }
+
         this.GRAINS = grains;
         this.FRUITS = fruits;
         this.PROTEIN = protein;
