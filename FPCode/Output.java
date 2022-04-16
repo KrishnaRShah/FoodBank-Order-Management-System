@@ -1,5 +1,7 @@
 package FPCode;
 
-public class Output {
+public interface Output {
+    void printOrder();
+  
     
 }
