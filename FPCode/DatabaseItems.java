@@ -117,7 +117,7 @@ public class DatabaseItems {
      * @param items is an array of items that will be removed from the database.
      * @since 0.3
      */
-    public void updateDatabase(Items[] items){
+    public void updateDatabase(Items[] items) throws IllegalArgumentException{
         // List of items to remove from data base.
         initializeConnection();
         try {
