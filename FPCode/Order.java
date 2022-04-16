@@ -14,7 +14,7 @@ import java.util.List;
  * an item list can be created for orders that require multiple hampers.
  */
 
-public class Order {
+public class Order implements Output{
 
     public List<Hamper> hamperList = new ArrayList<>();
 
@@ -58,6 +58,32 @@ public class Order {
     public List<Hamper> getHamper(){
         return this.hamperList;
     }
+    
+    public void printOrder(){
+        for (int i=0;i<hamperList.size();i++){
+            System.out.println("hamper: ");
+            System.out.print(i+1);
+
+            System.out.println("Fruits: ");
+            System.out.print(hamperList.get(i).getHamperNutrients().getFruits());
+
+            System.out.println("Grains: ");
+            System.out.print(hamperList.get(i).getHamperNutrients().getGrains());
+
+            System.out.println("Proteins: ");
+            System.out.print(hamperList.get(i).getHamperNutrients().getProtein());
+
+            System.out.println("Other: ");
+            System.out.print(hamperList.get(i).getHamperNutrients().getOther());
+
+            System.out.println("Total Calories: ");
+            System.out.print(hamperList.get(i).getHamperNutrients().getTotalCalories());
+
+            System.out.println();
+            System.out.println();
+
+        }
+
     
     
     
