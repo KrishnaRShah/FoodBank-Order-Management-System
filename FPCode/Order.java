@@ -28,7 +28,7 @@ public class Order implements Output{
      * in the arrayList, and then add the Hamper to the arrayList of Hampers
     */
     public Order(){}
-    public Order(ArrayList<int[]> clientArray){
+    public Order(ArrayList<int[]> clientArray) throws NotEnoughFoodException{
          this.clientsPerHamper=clientArray;
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)
