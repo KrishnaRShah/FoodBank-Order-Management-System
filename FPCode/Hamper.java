@@ -31,7 +31,7 @@ public class Hamper{
      * to construct clients to be used in the calculation of hamper nutrients. 
      * @param numClientTypes Int array of size 4.
      */
-    public Hamper(int[] numClientTypes) {
+    public Hamper(int[] numClientTypes) throws NotEnoughFoodException{
         this.clientArray = new Vector<Client>();
 
         //iterates through the entire array, which contains the # of each client at a given index
@@ -66,12 +66,9 @@ public class Hamper{
         // System.out.println(this.hamperNutrients.getProteinCals());
         // System.out.println(this.hamperNutrients.getOtherCals());
         // System.out.println(this.hamperNutrients.getTotalCalories());
-        try {
-            buildItemList();
-        } catch (NotEnoughFoodException e) {
-            System.out.println(" :( ");
-            System.exit(1);
-        }
+
+        buildItemList();
+
     }
 
     /**
@@ -80,7 +77,12 @@ public class Hamper{
      * @param listOfItems Vector of Items in the Hamper.
      */
     public Hamper(Vector<Items> listOfItems){
-        this.itemsList = listOfItems;
+        // copy the list of items
+        this.itemsList = new Vector<Items>();
+        for(Items i : listOfItems){
+            this.itemsList.add(i);
+        }
+        // get all the nutrient calories
         double grains = 0;
         double fruits = 0;
         double protein = 0;
@@ -93,12 +95,13 @@ public class Hamper{
             other += item.getNutrientData().getOtherCals();
             total += item.getNutrientData().getTotalCalories();
         }
-
+        // convert nutrient calories to percentages of the total calories
+        // to send as arguments to the Nutrients constructor
         grains = grains * 100 / total;
         fruits = fruits * 100 / total;
         protein = protein * 100 / total;
         other = other * 100 / total;
-
+        // voila
         this.hamperNutrients = new Nutrients(grains, fruits, protein, other, total);
     }
 
@@ -108,7 +111,7 @@ public class Hamper{
      * Calculates the hampers nutrients using the data stored in the clientArray.
      */
     public void calcHamperNutrients(){
-        System.out.println("Calculates Nutrients");
+        // System.out.println("Calculates Nutrients");
         // Creating variables to hold total macro values, which we will average
         double avgGrains = 0.0;
         double avgFruits = 0.0;
@@ -134,11 +137,11 @@ public class Hamper{
         avgOther = avgOther * 100 / wholeCalories;
 
         // test logging
-        System.out.println(avgGrains);
-        System.out.println(avgFruits);
-        System.out.println(avgProtein);
-        System.out.println(avgOther);
-        System.out.println("---------------------------------------------------");
+        // System.out.println(avgGrains);
+        // System.out.println(avgFruits);
+        // System.out.println(avgProtein);
+        // System.out.println(avgOther);
+        // System.out.println("---------------------------------------------------");
         
         this.hamperNutrients = new Nutrients(avgGrains, avgFruits, avgProtein, avgOther, wholeCalories);
     }
@@ -148,7 +151,7 @@ public class Hamper{
      * @throws NotEnoughFoodException
      */
     public void buildItemList() throws NotEnoughFoodException{
-        System.out.println("Starts");
+        // System.out.println("Starts");
         // all items currently in the database
         DatabaseItems db = new DatabaseItems();
         Items[] stock = db.getDatabaseItems();
@@ -158,13 +161,14 @@ public class Hamper{
         Items heartattack = new Items(-1, "pure grease", overkill);
         Vector<Items> death = new Vector<Items>();
         death.add(heartattack);
-        Hamper bestHamper = new Hamper(death);
+        Hamper cardiacarrest = new Hamper(death);
+        Hamper bestHamper = cardiacarrest;
         Hamper[] bestHampers = new Hamper[stock.length];
 
         // make all possible hampers
         for (int i = 0; i < stock.length; i++) {
             Vector<Items> combination = new Vector<Items>();
-            System.out.println("swag " + i);
+            // System.out.println("swag " + i);
             bestHamper = buildListHelper(combination, i, stock, bestHamper);
             // save all the best hampers
             bestHampers[i] = bestHamper;
@@ -182,8 +186,15 @@ public class Hamper{
             throw new NotEnoughFoodException();
         }
 
-        // test logging
-        System.out.println("BEST ---- "+bestHamper.getHamperNutrients().getTotalCalories() + " calories");
+        // did not find a better hamper than the default absurd hamper
+        // that met the requirements, thus it did not find a suitable hamper
+        if(bestHamper.equals(cardiacarrest)){
+            System.out.println("ERROR: Throwing NotEnoughFoodException...");
+            throw new NotEnoughFoodException();
+        }
+
+        // logging the hamper nutrients
+        System.out.println("BEST HAMPER:  "+bestHamper.getHamperNutrients().getTotalCalories() + " calories");
         System.out.print("Grains: " + bestHamper.getHamperNutrients().getGrains() + "%, ");
         System.out.println(bestHamper.getHamperNutrients().getGrainCals() + " Cals");
         System.out.print("Fruits: " + bestHamper.getHamperNutrients().getFruits() + "%, ");
@@ -195,9 +206,12 @@ public class Hamper{
 
         // save best hamper item combo to this.itemsList
         this.itemsList = bestHamper.getItemsList();
-        if(bestHamper.getItemsList().isEmpty()){
-            System.out.println("THE HAMPER ITEM LIST IS EMPTY!!!");
-        }
+        // if(bestHamper.getItemsList().isEmpty()){
+        //     System.out.println("THE HAMPER ITEM LIST IS EMPTY!!!");
+        // }
+
+        // logging the hamper items
+        System.out.println("Hamper consists of: ");
         for(Items a : itemsList){
             System.out.println(a.getItemName());
         }
@@ -233,7 +247,7 @@ public class Hamper{
                 // if it does, then check if its better than current best
                 if(temp.getHamperNutrients().getTotalCalories() < best.getHamperNutrients().getTotalCalories()){
                     best = temp;
-                    System.out.println("found a new best!");
+                    // System.out.println("found a new best!");
                 }
                 else{
                     current.remove(stock[index]);

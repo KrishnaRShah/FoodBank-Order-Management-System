@@ -1,3 +1,10 @@
+/**
+ * @author German Fonseca 30061209
+ * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
+ * @version 1.4 
+ * @since 0.0
+ */
+
 package FPCode;
 
 import javax.swing.*;
@@ -111,8 +118,19 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             }
         }
         if(event.getSource()==newOrder){
-            Order a=new Order(numberOfHampers);
-            a.printOrder();
+            JOptionPane.showMessageDialog(this,"please wait while order is processed");
+            Order a;
+            try{
+            a=new Order(numberOfHampers);
+            a.printToTXT();
+            JOptionPane.showMessageDialog(this,"your order is complete");
+        }
+            catch (NotEnoughFoodException e){
+                JOptionPane.showMessageDialog(this,"not enough food to fill your order");
+                System.out.println("SUCCESSFUL ERROR: NotEnoughFoodException was thrown.");
+                Order b=new Order();
+                b.printError();
+            }
             numberOfHampers.clear();
         }
     }

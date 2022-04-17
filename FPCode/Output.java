@@ -1,7 +1,10 @@
 package FPCode;
 
 public interface Output {
-    void printOrder();
+    void printToTXT();
+    String formatString();
+    void printError();
+    
   
     
 }
