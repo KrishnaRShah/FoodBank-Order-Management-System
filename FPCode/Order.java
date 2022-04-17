@@ -20,7 +20,7 @@ import java.io.File;
 
 public class Order implements Output{
     public ArrayList<int[]>clientsPerHamper=new ArrayList<int[]>();
-    public List<Hamper> hamperList = new ArrayList<>();
+    public List<Hamper> hamperList = new ArrayList<>();//local variables
 
 
     /**
