@@ -62,6 +62,10 @@ public class Order implements Output{
     public List<Hamper> getHamper(){
         return this.hamperList;
     }
+
+    /**
+     * Prints an error file
+    */
     
     public void printError(){ 
         try{
@@ -76,7 +80,20 @@ public class Order implements Output{
         }
         
     }
+
+    /**
+     * Method to format a String
+    */
+
     public String formatString(){ return"";}
+
+    /**
+     * Creates a new Order.txt file that will hold the order
+     * Prints original Hamper Request
+     * Goes through the HamperList and adds the number of clients per Hamper
+     * Adds Item's list to the output file
+    */
+
     public void printToTXT(){
         try{
             File file1=new File("Order.txt");
