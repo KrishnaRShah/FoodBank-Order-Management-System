@@ -113,7 +113,7 @@ public class Order implements Output{
         for (int i=0;i<hamperList.size();i++){
             pw.println();
             pw.println();
-            pw.println("hamper ");
+            pw.print("hamper ");
             pw.print(i+1);
             pw.print(" Items:");
             pw.println();
