@@ -1,7 +1,7 @@
 /**
- * @author Krishna Shah 30114067<a
+ * @author Krishna Shah 30114067<a & German Fonseca 30061209
  * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
- * @version 0.6 
+ * @version 1.8 
  * @since 0.0
  */
 
