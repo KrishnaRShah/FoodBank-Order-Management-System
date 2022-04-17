@@ -94,18 +94,22 @@ public class Order implements Output{
             if(clientsPerHamper.get(k)[0]!=0){
                 pw.print("Adult Males: ");
                 pw.print(clientsPerHamper.get(k)[0]);
+                pw.print(",   ");
             }
             if(clientsPerHamper.get(k)[1]!=0){
                 pw.print("Adult Females: ");
                 pw.print(clientsPerHamper.get(k)[1]);
+                pw.print(",   ");
             }
             if(clientsPerHamper.get(k)[2]!=0){
                 pw.print("Children Over 8: ");
                 pw.print(clientsPerHamper.get(k)[2]);
+                pw.print(",   ");
             }
             if(clientsPerHamper.get(k)[3]!=0){
                 pw.print("Children Under 8:");
                 pw.print(clientsPerHamper.get(k)[3]);
+                pw.print(",   ");
             }
         }
             
