@@ -1,3 +1,10 @@
+/**
+ * @author German Fonseca 30061209
+ * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
+ * @version 1.4 
+ * @since 0.0
+ */
+
 package FPCode;
 
 import javax.swing.*;
