@@ -17,6 +17,9 @@ import static org.junit.Assert.*;
  * method for the algorithm. As such search functionality was not needed. 
  */
 public class DatabaseItemsTest {
+    /**
+     * Constructor test to make sure it actually creates something
+     */
     @Test 
     public void testConstructor(){
         DatabaseItems dbTest = new DatabaseItems();
@@ -129,7 +132,9 @@ public class DatabaseItemsTest {
     // }
 
 
-    // This test checks the getter function in DatabaseItems
+    /**
+     * This test checks the getter function in DatabaseItems
+     */
     @Test 
     public void testGetDatabaseItems() {
         DatabaseItems dbItems = new DatabaseItems();
@@ -140,7 +145,9 @@ public class DatabaseItemsTest {
 
     }
 
-    // TEST FOR THE DATABASE UPDATE (Delete) AND REFRESH (auto done)
+    /**
+     * Test for the database update feature (Delete) and refresh auto done after the delete.
+     */
     @Test 
     public void testUpdateDatabaseAndRefreshDatabaseItems(){
         DatabaseItems dbtestItems = new DatabaseItems();
@@ -161,6 +168,10 @@ public class DatabaseItemsTest {
 
     //This test is specifically important because if we are deleting items in the hamper that do not exist, something is seriously wrong
     //This test will also test the checkForItem method. As such if this passes that passes as well.
+    /**
+     * Tests if an illegal argument exception is thrown with bad data to delete. The delete uses unique item ID, so if the ID doesn't exist it throws an illegal
+     * argument exception. This also checks the private method checkForItem
+     */
     @Test 
     public void testUpdateDatabaseBadData(){
         DatabaseItems dbItems = new DatabaseItems();
@@ -178,6 +189,10 @@ public class DatabaseItemsTest {
     // HELPER METHODS
     // These are just arbitrary values because the program is not made yet so testing with real data is impossible.
 
+    /**
+     * Returns an items array of one item for delete testing
+     * @return Items[] for deleting
+     */
     public static Items[] getItemsList (){
         double[] oneN = {0, 80, 10, 10, 120};
         Items first = new Items(1, "Tomato Sauce, jar", oneN);
@@ -185,6 +200,10 @@ public class DatabaseItemsTest {
         return returnItems;
     }
 
+    /**
+     * Returns an items array of one item where the ID does not exist in the test set.
+     * @return Items[] for testing if the correct exception is thrown.
+     */
     public static Items[] getBadItemsList(){
         double[] oneN = {0, 80, 10, 10, 120};
         Items first = new Items(590, "Tomato Sauce, jar", oneN); // Item ID is wayyy too large
@@ -192,6 +211,10 @@ public class DatabaseItemsTest {
         return returnItems;
     }
 
+    /**
+     * Returns an items array of 4 items which is identical to that in the micro inventory test file.
+     * @return Items[] of 4 items in the micro inventory file. 
+     */
     public static Items[] getTestItemsList(){
         double[] oneN = {0, 80, 10, 10, 120};
         Items one = new Items(1, "Tomato Sauce, jar", oneN);
@@ -204,7 +227,10 @@ public class DatabaseItemsTest {
         Items[] returnItems = {one,two,three,four};
         return returnItems;
     }
-
+    /**
+     * Returns an items array of 3 items which is identical to that in the micro inventory test file after the deletion test.
+     * @return Items[] of 3 items in the micro inventory file after the delete. 
+     */
     public static Items[] getAfterDeleteItemsList(){
         double[] twoN = {0, 100, 0, 0, 624};
         Items two = new Items(2, "Apple, dozen", twoN);
@@ -216,6 +242,12 @@ public class DatabaseItemsTest {
         return returnItems;
     }
 
+    /**
+     * Checks if the Items parameters for firstItems and secondItems arrays are the same. 
+     * @param firstItems Items[]
+     * @param secondItems Items[]
+     * @return True if they are all the same, false if even one parameter is different.
+     */
     public static boolean hasSameProperties(Items[] firstItems, Items[] secondItems){
         if (firstItems.length != secondItems.length) {
             return false;

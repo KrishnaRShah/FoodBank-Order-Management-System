@@ -16,7 +16,9 @@ public class ItemsTest {
     public static double[] dblArray = {25.0, 25.0, 25.0, 25.0, 1000.0};
     public static double[] badDblArray = {25.0, 25.0, 30.0, 25.0, 1000.0};
     
-    // Tests the constructor creates a valid item
+    /**
+     * Tests the constructor creates a valid item
+     */
     @Test
     public void testItemsConstructorGoodData(){
         boolean testException = false;
@@ -30,7 +32,9 @@ public class ItemsTest {
         assertNotEquals("Items threw illegalArgumentException for good data from nutrients.", true, testException);
     }
 
-    // Tests that it throws an IllegalArgumentException if the nutrients are not valid. 
+    /**
+     * Tests that it throws an IllegalArgumentException if the nutrients are not valid. 
+     */
     @Test
     public void testItemsConstructorBadData(){
         boolean testException = false;
@@ -48,7 +52,9 @@ public class ItemsTest {
     
     public Items testItem = new Items(25, "Twenty Fifth", dblArray); // This is funky without the correct test file structure.
 
-    // Tests the getter function for the nutrient data
+    /**
+     * Tests the getter function for the nutrient data
+     */
     @Test
     public void testGetNutrientData(){
         
@@ -58,7 +64,9 @@ public class ItemsTest {
         assertEquals("getNutrientData returns different data compared to what is expected", true, hasSameProperties(expectedData, actualData));
     }
 
-    // Tests that it gets the correct item id.
+    /**
+     * Tests that it gets the correct item id.
+     */
     @Test
     public void testGetItemID(){
         int expectedID = 25;
@@ -67,7 +75,9 @@ public class ItemsTest {
         assertEquals("getITEM_ID does not return the correct ID", expectedID, actualID);
     }
 
-    // Tests that it gets the correct item name
+    /**
+     * Tests that it gets the correct item name
+     */
     @Test
     public void testGetItem_Name(){
         String expectedName = "Twenty Fifth";
@@ -78,7 +88,12 @@ public class ItemsTest {
 
     // HELPER FUNCTION
 
-    // Used to determine that all elements of the nutrients are valid.
+    /**
+     * Used to determine that all elements of the nutrients are valid.
+     * @param first Nutrients object
+     * @param second Nutrients object
+     * @return True if all elements match, false otherwise.
+     */
     public static boolean hasSameProperties(Nutrients first, Nutrients second){
         if (first.getGrainCals() != second.getGrainCals()) {
             return false;
