@@ -116,6 +116,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             try{
             a=new Order(numberOfHampers);
             a.printToTXT();
+            JOptionPane.showMessageDialog(this,"your order is complete");
         }
             catch (NotEnoughFoodException e){
                 JOptionPane.showMessageDialog(this,"not enough food to fill your order");
