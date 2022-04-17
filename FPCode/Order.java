@@ -88,7 +88,7 @@ public class Order implements Output{
         pw.println("Original Hamper Request:");
         for (int k=0;k<hamperList.size();k++){
             pw.println();
-            pw.print("hamper ");
+            pw.print("Hamper ");
             pw.print(k+1);
             pw.print(": ");
             if(clientsPerHamper.get(k)[0]!=0){
@@ -117,7 +117,7 @@ public class Order implements Output{
         for (int i=0;i<hamperList.size();i++){
             pw.println();
             pw.println();
-            pw.print("hamper ");
+            pw.print("Hamper ");
             pw.print(i+1);
             pw.print(" Items:");
             pw.println();
