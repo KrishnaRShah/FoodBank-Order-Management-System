@@ -21,6 +21,7 @@ import java.io.File;
 
 public class Order implements Output{
     public ArrayList<int[]>clientsPerHamper=new ArrayList<int[]>();
+    public ArrayList<Integer> daysNeeded = new ArrayList<Integer>();
     public List<Hamper> hamperList = new ArrayList<>();//local variables
 
 
@@ -31,6 +32,7 @@ public class Order implements Output{
     public Order(){}
     public Order(ArrayList<int[]> clientArray, ArrayList<Integer> daysNeeded) throws NotEnoughFoodException, FailedToConnectException{
         this.clientsPerHamper=clientArray;
+        this.daysNeeded = daysNeeded;
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)
         {
@@ -109,7 +111,7 @@ public class Order implements Output{
             pw.print("Hamper ");
             pw.print(k+1);
             pw.print(" (for ");
-            pw.print(clientsPerHamper.get(k)[4]);
+            pw.print(daysNeeded.get(k));
             pw.print(" days)");
             pw.print(": ");
             
