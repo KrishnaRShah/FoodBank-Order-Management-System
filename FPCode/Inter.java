@@ -134,6 +134,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             if(validateIn()){//check that input is made up of numerical characters
                 numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
                 daysNeededArray.add(Integer.parseInt(daysNeeded));
+                JOptionPane.showMessageDialog(this,"Successfully added hamper to order");
+
                 //if input is valid, add input to the list of hampers
             }
   
@@ -178,6 +180,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         Matcher o=p.matcher(childOver8);
         Matcher u=p.matcher(childUnder8);
         Matcher d=p.matcher(daysNeeded);
+        if(adultFemale.equals("0")&&adultMale.equals("0")&&childOver8.equals("0")&&childUnder8.equals("0")){
+            JOptionPane.showMessageDialog(this,"Must enter at least 1 client to generate a hamper");
+            return false; 
+        }
         if(f.matches()&&m.matches()&&o.matches()&&u.matches()&&d.matches()){
             return true;
         }
