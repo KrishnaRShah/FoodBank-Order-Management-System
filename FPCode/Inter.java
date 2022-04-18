@@ -178,6 +178,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         Matcher o=p.matcher(childOver8);
         Matcher u=p.matcher(childUnder8);
         Matcher d=p.matcher(daysNeeded);
+        if(adultFemale.equals("0")&&adultMale.equals("0")&&childOver8.equals("0")&&childUnder8.equals("0")){
+            JOptionPane.showMessageDialog(this,"Must enter at least 1 client to generate a hamper");
+            return false; 
+        }
         if(f.matches()&&m.matches()&&o.matches()&&u.matches()&&d.matches()){
             return true;
         }
