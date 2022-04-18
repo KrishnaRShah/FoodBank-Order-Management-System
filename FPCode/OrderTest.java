@@ -13,7 +13,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.sql.*;
-import java.util.Vector;
+// import java.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +48,13 @@ public class OrderTest {
 
         ArrayList<int[]> testArrayList = new ArrayList<int[]>();
         int[] testArray = {1,2};
-
         testArrayList.add(testArray);
-        
+        ArrayList<Integer> testDays = new ArrayList<Integer>();
+        testDays.add(1);
 
         try{
-            Order testOrder = new Order(testArrayList, 1);
+            @SuppressWarnings("unused")
+            Order testOrder = new Order(testArrayList, testDays);
             refreshDatabase();
         }
         catch(IllegalArgumentException e){
@@ -83,7 +84,9 @@ public class OrderTest {
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
         int[] testArray = {1,2};
         testArrayList.add(testArray);
-        Order testOrder = new Order(testArrayList, 1);
+        ArrayList<Integer> testDays = new ArrayList<Integer>();
+        testDays.add(1);
+        Order testOrder = new Order(testArrayList, testDays);
         refreshDatabase();
     
 
@@ -118,7 +121,9 @@ public class OrderTest {
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
         int[] testArray = {1,2};
         testArrayList.add(testArray);
-        Order testOrder = new Order(testArrayList, 1);
+        ArrayList<Integer> testDays = new ArrayList<Integer>();
+        testDays.add(1);
+        Order testOrder = new Order(testArrayList, testDays);
         refreshDatabase();
 
         List<Hamper> correctHamperList = new ArrayList<Hamper>();    //Creates hamperList
@@ -153,7 +158,9 @@ d
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
         int[] testArray = {1};
         testArrayList.add(testArray);
-        Order testOrder = new Order(testArrayList, 1);
+        ArrayList<Integer> testDays = new ArrayList<Integer>();
+        testDays.add(1);
+        Order testOrder = new Order(testArrayList, testDays);
         refreshDatabase();
 
         int[] correctClientTypes = {1,2};                 

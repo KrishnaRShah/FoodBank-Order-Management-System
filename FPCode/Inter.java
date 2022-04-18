@@ -44,6 +44,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     static private JButton newOrder;//button to specify end of order
 
     static public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
+    static public ArrayList<Integer> daysNeededArray = new ArrayList<Integer>();
 
          /**
     *constructor specifiying GUI window details
@@ -131,7 +132,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         if(event.getSource()==submit){//if hamper is submitted, do the foollowing
 
             if(validateIn()){//check that input is made up of numerical characters
-                numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8),Integer.parseInt(daysNeeded)});
+                numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
+                daysNeededArray.add(Integer.parseInt(daysNeeded));
                 //if input is valid, add input to the list of hampers
             }
   
@@ -145,7 +147,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             try{//try to make a new order with the client number input 
 
                 
-            a=new Order(numberOfHampers);
+            a=new Order(numberOfHampers, daysNeededArray);
                 
                 
             a.printToTXT();//once order is complete, create output on a txt file
