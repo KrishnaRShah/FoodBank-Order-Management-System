@@ -28,12 +28,12 @@ public class Order implements Output{
      * in the arrayList, and then add the Hamper to the arrayList of Hampers
     */
     public Order(){}
-    public Order(ArrayList<int[]> clientArray) throws NotEnoughFoodException{
-         this.clientsPerHamper=clientArray;
+    public Order(ArrayList<int[]> clientArray, int daysNeeded) throws NotEnoughFoodException{
+        this.clientsPerHamper=clientArray;
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)
         {
-            Hamper addHamper = new Hamper(clientArray.get(i));
+            Hamper addHamper = new Hamper(clientArray.get(i), daysNeeded);
             this.hamperList.add(addHamper);
         }
     }

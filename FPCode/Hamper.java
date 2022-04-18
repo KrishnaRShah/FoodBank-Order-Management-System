@@ -31,8 +31,9 @@ public class Hamper{
      * to construct clients to be used in the calculation of hamper nutrients. 
      * @param numClientTypes Int array of size 4.
      */
-    public Hamper(int[] numClientTypes) throws NotEnoughFoodException{
+    public Hamper(int[] numClientTypes, int noOfDaysNeeded) throws NotEnoughFoodException{
         this.clientArray = new Vector<Client>();
+        this.daysNeeded = noOfDaysNeeded;
 
         //iterates through the entire array, which contains the # of each client at a given index
         //numClientTypes[0] = # of adult males

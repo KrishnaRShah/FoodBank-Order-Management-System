@@ -130,7 +130,11 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             JOptionPane.showMessageDialog(this,"please wait while order is processed");//tell user to be patient to allow the order to be processed 
             Order a;
             try{//try to make a new order with the client number input 
-            a=new Order(numberOfHampers);
+
+                // NEED DAYS NEEDED!!!
+            a=new Order(numberOfHampers, daysNeeded);
+                // NEED DAYS NEEDED!!!
+                
             a.printToTXT();//once order is complete, create output on a txt file
             JOptionPane.showMessageDialog(this,"your order is complete");//tell user order is complete
         }
