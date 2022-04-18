@@ -90,6 +90,7 @@ public class Client {
                 break;
         }
 
+        // Runs the query to grab the client information we are looking for from the database. 
         try {
             
             String query = "SELECT * FROM daily_client_needs WHERE ClientID = ?";
@@ -115,7 +116,7 @@ public class Client {
     }
 
 
-
+    // Commented out because new system was implemented
     // Client(int id, String type){
     //     // 4 possible IDs
     //     if(id < 1 || id > 4){
@@ -165,7 +166,9 @@ public class Client {
         try {
             dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace(); // THIS NEEDS TO BE CHANGED BECAUSE WE NEED TO BE ABLE TO INTERNALLY HANDLE ERRORS
+            System.err.println("Unexpected SQL Exception was thrown in initializeConnection in Client." + 
+                " This is most likely because the URL, USERNAME or PASSWORD is incorrect.");
+            e.printStackTrace(); 
         }
     }
 

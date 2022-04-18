@@ -49,21 +49,24 @@ public class DatabaseItems {
     }
 
     /**
-     * This will grab all items from the database and store it in databaseItems. 
+     * This will grab all items from the database and store it in databaseItems. databaseItems is a vector of Items that get pulled from the database.
+     * It will initialize connection using the initializeConnection method and then select everything from the database called "available_food," then
+     * store all each row of the database as a new item and add it to the databaseItems vector.
      * @return null
      * @since 0.3
      */
     public void refreshDatabaseItems(){
-        // Call to database to return all from the given inventory
         initializeConnection();
-        databaseItems.clear();
+        databaseItems.clear(); // clear the vector so it can be rewritten. 
         Items itemAdd;
         double[] nutrientsInfo = new double[5];
         try {
+            // Query information to the SQL database
             String query = "SELECT * FROM available_food";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             ResultSet results = myStmt.executeQuery();
 
+            // This will add the items with their specific nutrients information to the databaseItems vector.
             while (results.next()) {
                 nutrientsInfo[0] = (double)results.getInt("GrainContent");
                 nutrientsInfo[1] = (double)results.getInt("FVContent");
@@ -81,10 +84,12 @@ public class DatabaseItems {
                 }
                 
             }
+            // Closes
             myStmt.close();
             results.close();
             dbConnect.close();
         } catch (SQLException e) {
+            System.err.println("Unexcpected SQL exception thrown in refreshDatabaseItems in DatabaseItems. Read the SQL error code for more details");
             e.printStackTrace();
         }
         databaseItems.trimToSize();
@@ -98,24 +103,31 @@ public class DatabaseItems {
      * Updated 1.4
      */
     public void updateDatabase(Items[] items) throws IllegalArgumentException{
-        // List of items to remove from data base.
         initializeConnection();
         try {
+            // Query information for deleting
             String query = "DELETE FROM available_food WHERE ItemID = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            // loops through the items array to remove each item using the ID. (ID is used because it is unique from the SQL database.)
             for (int i = 0; i < items.length; i++) {
                 if (items[i] == null) {
-                    System.err.println("Null entry in items. Skipping");
+                    System.err.println("Null entry in items. Skipping"); // Incase there are null elements.
                     continue;
                 }
+                // If the ID doesn't exist locally, then it doesnt exist in the database. SQL can deal with this no problem, but its more of an issue
+                // where this will be called after a hamper is created. If we just made a hamper with a non existent food item... THATS A PROBLEM.
                 if (!checkForItem(items[i].getItemID())) {
-                    throw new IllegalArgumentException("Item is not in database");
+                    throw new IllegalArgumentException("Item is not in database"); 
                 }
+
                 myStmt.setInt(1, items[i].getItemID());
 
                 int updateCheck = myStmt.executeUpdate();
+                // Even if there is no delete, update check is 1. How ever if it is ever not 1, that means that either 2+ items had the same ID or some other
+                // issue occured. Throwing an exception allows this to be caught and then it can be worked around.
                 if (updateCheck != 1) {
-                    throw new IllegalArgumentException("SQL Update was not 1. Input must have been faulty");
+                    throw new IllegalArgumentException("SQL Update was not 1. Input must have been faulty"); 
                 } else {
                     updateCheck = 0;
                 }
@@ -125,13 +137,15 @@ public class DatabaseItems {
             dbConnect.close();
         }   
         catch (SQLException e) {
+            System.err.println("Unexcpected SQL exception thrown in updateDatabase in DatabaseItems. Read the SQL error code for more details");
             e.printStackTrace();
         }
         
         refreshDatabaseItems();
     }
 
-    // Commenting out the logic parts because there was a different approach to calculating the algorithm. This was typed out and didn't want it to go to waste
+    // Commenting out the logic parts because there was a different approach to calculating the algorithm. This was typed out and didn't want it to go to waste.
+    // This is to show that the testing and methodology was there for a different type of algorithm, it was just scrapped late in the process. 
 
     // /**
     //  * Returns an object of type "Items" in which the item contains the most calories from a given "type" that gets input.
@@ -417,7 +431,7 @@ public class DatabaseItems {
     /**
      * Getter function to return the Database Items too an array. 
      * @return An array of the Items object
-     * @since 0.4
+     * @since 0.4 Updated 1.1
      */
     public Items[] getDatabaseItems (){
         /*
@@ -432,12 +446,14 @@ public class DatabaseItems {
     }
 
     /**
-     * This is a helper function that checks through the list of items to see if the ID is in the list. 
+     * This is a helper function that checks through databaseItems to see if the ID is in the vector list. 
      * @param id Int
-     * @return Boolean. if the ID is contained in databaseItems, return true. Else false.
+     * @return Boolean. true if the ID is contained in databaseItems, else false.
      * @since 1.4
      */
     private boolean checkForItem(int id){
+        // Because it is a vector (and id's can be deleted), this needs to be a for loop search.
+        // Using the .contains() function could work, but its much easier to use ID's
         for (int i = 0; i < this.databaseItems.size(); i++) {
             if (id == databaseItems.get(i).getItemID()) {
                 return true;

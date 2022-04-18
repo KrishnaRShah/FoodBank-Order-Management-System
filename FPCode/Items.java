@@ -24,8 +24,8 @@ public class Items {
     private final int ITEM_ID;
     private final String ITEM_NAME;
     /**
-     * Items constructor takes in an id, name, and the nutrientInfo to fill out the relevant data. 
-     * @param id Int
+     * Items constructor takes in an id, name, and the nutrientInfo to fill out the relevant data and store it for future use. 
+     * @param id int 
      * @param name String
      * @param nutrientInfo double Array of length 5 in order Grains, Fruits, Protein, Other, Total Calories.
      */
