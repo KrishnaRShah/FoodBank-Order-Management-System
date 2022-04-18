@@ -3,22 +3,24 @@
 * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
 * @author Danny Picazo 301271082<a
 * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
-* @version 0.8 
+* @version 1.2 
 * @since 0.0
 */
 
+// Commenting and revisions done by Ryan Mailhiot
 package FPCode;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * Class to test Client
+ * This class will test the client.java class for the final project. Its aim is to test all methods to insure correct functionality of each class.
  */
 public class ClientTest {
 
 
     /**
-    * Tests Client Constructor
+    * This tests the client constructor by creating a new client. If the constructor fails it throws an IllegalArgumentException, which would then be
+    * caught by the test to presume a fail. Testing all 4 valid inputs to see if any of them throw an exception.
     */
 
     @Test
@@ -27,7 +29,13 @@ public class ClientTest {
 
         try {
             @SuppressWarnings("unused")
-            Client client = new Client(1);
+            Client client1 = new Client(1);
+            @SuppressWarnings("unused")
+            Client client2 = new Client(2);
+            @SuppressWarnings("unused")
+            Client client3 = new Client(3);
+            @SuppressWarnings("unused")
+            Client client4 = new Client(4);
         } catch (IllegalArgumentException e) {
             exceptionThrown = true;
         }
@@ -36,14 +44,16 @@ public class ClientTest {
     }
 
     /**
-    * Tests Client getters and setters
+    * This will test all of the clients getters and setters at the same time. Each will have an individual message for pass or failure, so it will still be
+    * possible to tell which ones are successful and which ones are failures. 
     */
     @Test
     public void testClientGetsNSets(){
         boolean exceptionThrown = false;
 
+        // Danny's idea, not mine. -Ryan
         Client client = new Client(1);
-        int id = -1337;
+        int id = -1337; 
         String type = "you definitely messed something up";
         Nutrients nut = new Nutrients(100, 0, 0, 0, 420);
 
@@ -65,7 +75,7 @@ public class ClientTest {
     }
 
     /**
-    * Tests all Client types
+    * This tests all the client types to make sure they return the correct type from the enum and store the correct information.
     */
 
     @Test
@@ -86,6 +96,7 @@ public class ClientTest {
 
     }
 
+    // more simple versions below.
     // @Test
     // public void testInvalidClientType(){
     //     boolean exceptionThrown1 = false;
@@ -116,23 +127,37 @@ public class ClientTest {
     // }
 
     /**
-    * Tests invalid client id's
-    */
-
-
+     * This tests the constructor for the lower end boundary case in which it should throw an IllegalArgumentException for an ID being less than 1.
+     */
     @Test
-    public void testInvalidClientID(){
+    public void testClientConstructorBadInputLow(){
+        boolean exceptionThrown = false;
+
+        try {
+            @SuppressWarnings("unused")
+            Client client1 = new Client(0);
+        } catch (IllegalArgumentException e) {
+            exceptionThrown = true;
+        }
+
+        assertTrue("There was no exception thrown with an invalid ID. (Bad input low)", exceptionThrown);
+    }
+
+    /**
+     * This tests the constructor for the higher end boundary case in which it should throw an IllegalArgumentException for an ID being greater than 4.
+     */
+    @Test
+    public void testClientConstructorBadInputHigh(){
         boolean exceptionThrown = false;
 
         try {
             @SuppressWarnings("unused")
             Client client1 = new Client(5);
-            Client client2 = new Client(0);
         } catch (IllegalArgumentException e) {
             exceptionThrown = true;
         }
 
-        assertTrue("An invalid Client ID did not throw an IllegalArgumentException.", exceptionThrown);
+        assertTrue("There was no exception thrown with an invalid ID. (Bad input high)", exceptionThrown);
     }
 
     // @Test
