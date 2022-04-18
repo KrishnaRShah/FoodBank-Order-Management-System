@@ -159,6 +159,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
                 Order b=new Order();//instantiate new order to generate output file
                 b.printError();//generate error output file
             }
+            catch (FailedToConnectException z){//if there is an error connecting to database, inform the user
+                JOptionPane.showMessageDialog(this,"Failed to connect to database. Check url, username and/or password and try again");//tell user not enough food is available
+
+            }
             numberOfHampers.clear();//once order is done, clear out contents of order to restart process
         }
     }
