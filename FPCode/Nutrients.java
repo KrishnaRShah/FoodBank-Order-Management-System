@@ -15,7 +15,7 @@ public class Nutrients {
     //     this.TOTAL_CALORIES = 0;
     // }
 
-    Nutrients(double grains, double fruits, double protein, double other, double totalCals){
+    public Nutrients(double grains, double fruits, double protein, double other, double totalCals){
         // in the case of total percentage being like 99.999~ or so
         int tot = (int) Math.round(grains+fruits+protein+other);
         // System.out.println("TOTAL AHUDHWAJHDAWJH: " + tot);

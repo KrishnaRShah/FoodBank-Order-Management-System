@@ -31,7 +31,7 @@ public class DatabaseItems {
      * there will be items in the vector after the constructor is called. 
      * @since 0.1
      */
-    protected DatabaseItems() throws FailedToConnectException{
+    public DatabaseItems() throws FailedToConnectException{
         databaseItems = new Vector<Items>(SIZE_VECTOR, INCREMENT_VECTOR);
         refreshDatabaseItems();
     }

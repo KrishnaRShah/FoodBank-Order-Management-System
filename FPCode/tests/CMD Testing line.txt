@@ -1,0 +1,12 @@
+javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar FPCode/*.java
+java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore FPCode.
+
+
+javac -cp .;lib/mysql-connector-java-8.0.23.jar FPCode/*.java
+java -cp .;lib/mysql-connector-java-8.0.23.jar FPCode.
+
+javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/mysql-connector-java-8.0.23.jar FPCode/tests/*.java
+java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore FPCode.tests.
+
+These are the commands used to test the code. Feel free to use them if your file structure is the
+same as the videos. That is working directory has lib and FPCode. 

@@ -4,7 +4,8 @@ href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
 @version 1.1 
 @since 0.0 (1.0 is first working version)
 */
-package FPCode;
+package FPCode.tests;
+import FPCode.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -39,6 +40,7 @@ public class ItemsTest {
     public void testItemsConstructorBadData(){
         boolean testException = false;
         try {
+            @SuppressWarnings("unused")
             Items second = new Items(2, "second", badDblArray);
         } catch (IllegalArgumentException e) {
             testException = true;

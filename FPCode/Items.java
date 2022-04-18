@@ -29,7 +29,7 @@ public class Items {
      * @param name String
      * @param nutrientInfo double Array of length 5 in order Grains, Fruits, Protein, Other, Total Calories.
      */
-    Items(int id, String name, double[] nutrientInfo){
+    public Items(int id, String name, double[] nutrientInfo){
         this.ITEM_ID = id;
         this.ITEM_NAME = name;
         if(nutrientInfo.length != 5){

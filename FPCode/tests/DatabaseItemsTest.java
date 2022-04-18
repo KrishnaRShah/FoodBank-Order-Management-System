@@ -4,7 +4,8 @@
  * @version 1.1
  * @since 0.0
 */
-package FPCode;
+package FPCode.tests;
+import FPCode.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;

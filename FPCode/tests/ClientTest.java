@@ -8,7 +8,8 @@
 */
 
 // Commenting and revisions done by Ryan Mailhiot
-package FPCode;
+package FPCode.tests;
+import FPCode.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
