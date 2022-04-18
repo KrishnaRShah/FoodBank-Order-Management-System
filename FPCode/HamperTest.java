@@ -76,7 +76,7 @@ public class HamperTest {
      * This test checks the getter for the Client array variable in Hamper.
      */
     @Test
-    public void testGetClientArray(){
+    public void testGetClientArray() throws FailedToConnectException{
         int[] testArray = {1};
         boolean unexpectedException = false;
         Vector<Client> testClientArray = new Vector<Client>();

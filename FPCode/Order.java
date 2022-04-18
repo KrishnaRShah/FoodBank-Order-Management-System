@@ -1,13 +1,14 @@
 /**
  * @author Krishna Shah 30114067<a & German Fonseca 30061209
  * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
- * @version 1.8 
+ * @version 2.0
  * @since 0.0
  */
 
 package FPCode;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +29,7 @@ public class Order implements Output{
      * in the arrayList, and then add the Hamper to the arrayList of Hampers
     */
     public Order(){}
-    public Order(ArrayList<int[]> clientArray, ArrayList<Integer> daysNeeded) throws NotEnoughFoodException{
+    public Order(ArrayList<int[]> clientArray, ArrayList<Integer> daysNeeded) throws NotEnoughFoodException, FailedToConnectException{
         this.clientsPerHamper=clientArray;
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)

@@ -32,7 +32,7 @@ public class Hamper{
      * @author Krishna Shah
      * @param numClientTypes Int array of size 4.
      */
-    public Hamper(int[] numClientTypes, int noOfDaysNeeded) throws NotEnoughFoodException{
+    public Hamper(int[] numClientTypes, int noOfDaysNeeded) throws NotEnoughFoodException, FailedToConnectException{
         this.clientArray = new Vector<Client>();
         this.daysNeeded = noOfDaysNeeded;
 
@@ -154,7 +154,7 @@ public class Hamper{
      * @author Danny Picazo
      * @throws NotEnoughFoodException
      */
-    public void buildItemList() throws NotEnoughFoodException{
+    public void buildItemList() throws NotEnoughFoodException, FailedToConnectException{
         // System.out.println("Starts");
         // all items currently in the database
         DatabaseItems db = new DatabaseItems();

@@ -42,7 +42,7 @@ public class OrderTest {
      * @since 0.1
      */
     @Test
-    public void testOrderConstructor() throws NotEnoughFoodException{
+    public void testOrderConstructor() throws NotEnoughFoodException, FailedToConnectException{
         boolean exceptionThrown = false;
 
 
@@ -78,7 +78,7 @@ public class OrderTest {
      */
     
     @Test
-    public void testGetHamperAtIndex() throws NotEnoughFoodException{
+    public void testGetHamperAtIndex() throws NotEnoughFoodException, FailedToConnectException{
 
         //creates an arrayList for order constructor
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
@@ -116,7 +116,7 @@ public class OrderTest {
      */
 
     @Test
-    public void testGetHamperList() throws NotEnoughFoodException{
+    public void testGetHamperList() throws NotEnoughFoodException, FailedToConnectException{
         
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
         int[] testArray = {1,2};
@@ -153,7 +153,7 @@ d
      */
 
     @Test
-    public void testAddHamper() throws NotEnoughFoodException{
+    public void testAddHamper() throws NotEnoughFoodException, FailedToConnectException{
 
         ArrayList<int[]> testArrayList = new ArrayList<int[]>(); 
         int[] testArray = {1};
