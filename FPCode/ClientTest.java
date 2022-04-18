@@ -3,7 +3,7 @@
 * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
 * @author Danny Picazo 301271082<a
 * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
-* @version 1.2 
+* @version 1.3 
 * @since 0.0
 */
 
@@ -24,7 +24,7 @@ public class ClientTest {
     */
 
     @Test
-    public void testClientConstructor(){
+    public void testClientConstructor() throws FailedToConnectException{
         boolean exceptionThrown = false;
 
         try {
@@ -48,7 +48,7 @@ public class ClientTest {
     * possible to tell which ones are successful and which ones are failures. 
     */
     @Test
-    public void testClientGetsNSets(){
+    public void testClientGetsNSets() throws FailedToConnectException{
         boolean exceptionThrown = false;
 
         // Danny's idea, not mine. -Ryan
@@ -79,7 +79,7 @@ public class ClientTest {
     */
 
     @Test
-    public void testAllClientTypes(){
+    public void testAllClientTypes() throws FailedToConnectException{
         // boolean exceptionThrown = false;
 
         Client am = new Client(1);
@@ -130,7 +130,7 @@ public class ClientTest {
      * This tests the constructor for the lower end boundary case in which it should throw an IllegalArgumentException for an ID being less than 1.
      */
     @Test
-    public void testClientConstructorBadInputLow(){
+    public void testClientConstructorBadInputLow() throws FailedToConnectException{
         boolean exceptionThrown = false;
 
         try {
@@ -147,7 +147,7 @@ public class ClientTest {
      * This tests the constructor for the higher end boundary case in which it should throw an IllegalArgumentException for an ID being greater than 4.
      */
     @Test
-    public void testClientConstructorBadInputHigh(){
+    public void testClientConstructorBadInputHigh() throws FailedToConnectException{
         boolean exceptionThrown = false;
 
         try {

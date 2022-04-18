@@ -3,7 +3,7 @@
  * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
  * @author Danny Picazo 301271082<a
  * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
- * @version 2.0
+ * @version 2.1
  * @since 0.0
 */
 
@@ -148,11 +148,11 @@ public class HamperTest {
      */
     @Test
     public void testGetDaysNeeded(){
-        int[] testArray = {1, 0, 0, 0};
+        int[] testArray = {0, 0, 0, 1};
         boolean unexpectedException = false;
         try {
-            Hamper testHamper = new Hamper(testArray, 26);
-            assertEquals("daysNeeded was not the expected value.", 26, testHamper.getDaysNeeded());
+            Hamper testHamper = new Hamper(testArray, 9);
+            assertEquals("daysNeeded was not the expected value.", 9, testHamper.getDaysNeeded());
         } catch (Exception e) {
             unexpectedException = true;
         }
