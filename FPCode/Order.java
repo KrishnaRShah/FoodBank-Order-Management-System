@@ -33,7 +33,7 @@ public class Order implements Output{
         this.hamperList = new ArrayList<>();
         for(int i = 0; i < clientArray.size(); i++)
         {
-            Hamper addHamper = new Hamper(clientArray.get(i), daysNeeded);
+            Hamper addHamper = new Hamper(clientArray.get(i), ClientArray.get(i)[4]);
             this.hamperList.add(addHamper);
         }
     }
