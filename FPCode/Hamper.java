@@ -134,10 +134,11 @@ public class Hamper{
         //     avgProtein/(clientArray.size()), avgOther/(clientArray.size()), wholeCalories);
 
         // convert the temp variables into percentages of the total cals
-        avgGrains = avgGrains * 100 / wholeCalories;
-        avgFruits = avgFruits * 100 / wholeCalories;
-        avgProtein = avgProtein * 100 / wholeCalories;
-        avgOther = avgOther * 100 / wholeCalories;
+        wholeCalories = wholeCalories * this.daysNeeded;
+        avgGrains = avgGrains * daysNeeded * 100 / wholeCalories;
+        avgFruits = avgFruits * daysNeeded * 100 / wholeCalories;
+        avgProtein = avgProtein * daysNeeded * 100 / wholeCalories;
+        avgOther = avgOther * daysNeeded * 100 / wholeCalories;
 
         // test logging
         // System.out.println(avgGrains);
