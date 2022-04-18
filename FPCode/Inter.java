@@ -134,6 +134,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             if(validateIn()){//check that input is made up of numerical characters
                 numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
                 daysNeededArray.add(Integer.parseInt(daysNeeded));
+                JOptionPane.showMessageDialog(this,"Successfully added hamper to order");
+
                 //if input is valid, add input to the list of hampers
             }
   
