@@ -50,7 +50,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     *constructor specifiying GUI window details
     */
     public Inter(){
-        super("generate hamper");
+        super("Generate Hamper");
         createWindow();
         setSize(550,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,12 +60,12 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     *this method instantiates all fields and adds them into the GUI window to be visible by the user
     */
     public void createWindow(){
-        inst=new JLabel("enter required information to generate hamper, please enter only numeric characters (0-9)");
-        aFL=new JLabel("enter number of adult females");
-        aML=new JLabel("                      enter number of adult males");
-        cOL=new JLabel("enter number of children over 8");
-        cUL=new JLabel("                              enter number of children under 8");
-        dN=new JLabel("                        enter number of days needed for this hamper");
+        inst=new JLabel("Enter required information to generate hamper, please enter only numeric characters (0-9)");
+        aFL=new JLabel("Enter number of adult females");
+        aML=new JLabel("                      Enter number of adult males");
+        cOL=new JLabel("Enter number of children over 8");
+        cUL=new JLabel("                              Enter number of children under 8");
+        dN=new JLabel("                        Enter number of days needed for this hamper");
 
 
         femaleInput=new JTextField("",15);
@@ -80,9 +80,9 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         childOver.addMouseListener(this);//add mouse listeners to to text fields used for user input
         childUnder.addMouseListener(this);
 
-        submit=new JButton("submit");
+        submit=new JButton("SUBMIT");
         submit.addActionListener(this);
-        newOrder=new JButton("end current order");
+        newOrder=new JButton("END CURRENT ORDER");
         newOrder.addActionListener(this);
         
         JPanel headerPanel=new JPanel();//panel that will contain text instructions on use of the GUI
@@ -138,11 +138,11 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             }
   
             else{//if input is invalid, tell user input is invalid and allow them to try again
-                JOptionPane.showMessageDialog(this,"illegal character entered, please use only numerical characters (0-9)");
+                JOptionPane.showMessageDialog(this,"Illegal character entered, please use only numerical characters (0-9).");
             }
         }
         if(event.getSource()==newOrder){//if the end order button is pressed do the following:
-            JOptionPane.showMessageDialog(this,"please wait while order is processed");//tell user to be patient to allow the order to be processed 
+            JOptionPane.showMessageDialog(this,"Please wait while order is processed.");//tell user to be patient to allow the order to be processed 
             Order a;
             try{//try to make a new order with the client number input 
 
@@ -151,16 +151,16 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
                 
                 
             a.printToTXT();//once order is complete, create output on a txt file
-            JOptionPane.showMessageDialog(this,"your order is complete");//tell user order is complete
+            JOptionPane.showMessageDialog(this,"Your order is complete.");//tell user order is complete
         }
             catch (NotEnoughFoodException e){//if not enough food is available to fill out order, do the following:
-                JOptionPane.showMessageDialog(this,"not enough food to fill your order");//tell user not enough food is available
+                JOptionPane.showMessageDialog(this,"Not enough food to fill your order.");//tell user not enough food is available
                 System.out.println("SUCCESSFUL ERROR: NotEnoughFoodException was thrown.");
                 Order b=new Order();//instantiate new order to generate output file
                 b.printError();//generate error output file
             }
             catch (FailedToConnectException z){//if there is an error connecting to database, inform the user
-                JOptionPane.showMessageDialog(this,"Failed to connect to database. Check url, username and/or password and try again");//tell user not enough food is available
+                JOptionPane.showMessageDialog(this,"Failed to connect to database. Check url, username and/or password and try again.");//tell user not enough food is available
 
             }
             numberOfHampers.clear();//once order is done, clear out contents of order to restart process
