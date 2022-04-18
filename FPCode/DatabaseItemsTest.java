@@ -22,7 +22,14 @@ public class DatabaseItemsTest {
      */
     @Test 
     public void testConstructor(){
-        DatabaseItems dbTest = new DatabaseItems();
+        boolean failedToConnect = false;
+        DatabaseItems dbTest = null;
+        try {
+            dbTest = new DatabaseItems();
+        } catch (FailedToConnectException e) {
+            failedToConnect = true;
+        }
+        assertFalse("Failed to connect to the database when it should have. Check the URL, USERNAME and PASSWORD.", failedToConnect);
         assertNotNull("The Database Constructor does not load in Database items.", dbTest);
     }
 
@@ -142,10 +149,18 @@ public class DatabaseItemsTest {
      */
     @Test 
     public void testGetDatabaseItems() {
-        DatabaseItems dbItems = new DatabaseItems();
-        Items[] expectedValue = getTestItemsList(); // This is a helper method seen below
-        Items[] actual = dbItems.getDatabaseItems();
-
+        boolean failedToConnect = false;
+        Items[] expectedValue = null;
+        Items[] actual = getBadItemsList(); //filler
+        try {
+            DatabaseItems dbItems = new DatabaseItems();
+            expectedValue = getTestItemsList(); // This is a helper method seen below
+            actual = dbItems.getDatabaseItems();
+        } catch (FailedToConnectException e) {
+            failedToConnect = true;
+        }
+        
+        assertFalse("Failed to connect to the database when it should have. Check the URL, USERNAME and PASSWORD.", failedToConnect);
         assertEquals("Items are not the same properties.",true, hasSameProperties(expectedValue, actual));
 
     }
@@ -160,7 +175,14 @@ public class DatabaseItemsTest {
      */
     @Test 
     public void testUpdateDatabaseAndRefreshDatabaseItems(){
-        DatabaseItems dbtestItems = new DatabaseItems();
+        boolean failedToConnect = false;
+        DatabaseItems dbtestItems = null;
+        try {
+            dbtestItems = new DatabaseItems();
+        } catch (FailedToConnectException e) {
+            failedToConnect = true;
+        }
+        
         boolean exceptionCatch = false;
         boolean completeFailure = false;
         Items[] testVector = dbtestItems.getDatabaseItems(); // will be erased, its just something
@@ -173,6 +195,7 @@ public class DatabaseItemsTest {
             completeFailure = true;
         }
         
+        assertFalse("Failed to connect to the database", failedToConnect);
         assertEquals("Does not have same items after deletion",true, hasSameProperties(getAfterDeleteItemsList(), testVector));
         assertNotEquals("Database Threw exception when it shouldn't have. (testUpdateDatabaseAndRefreshDatabaseItems)", true, exceptionCatch);
         assertFalse("An unexpected error occured in testUpdateDatabaseAndRefreshDatabaseItems. This is a big issue.", completeFailure);
@@ -186,7 +209,13 @@ public class DatabaseItemsTest {
      */
     @Test 
     public void testUpdateDatabaseBadData(){
-        DatabaseItems dbItems = new DatabaseItems();
+        boolean failedToConnect = false;
+        DatabaseItems dbItems = null;
+        try {
+            dbItems = new DatabaseItems();
+        } catch (FailedToConnectException e) {
+            failedToConnect = true;
+        }
         boolean correctException = false;
         try {
             dbItems.updateDatabase(getBadItemsList()); // Tries to delete the the bad item.
@@ -196,6 +225,7 @@ public class DatabaseItemsTest {
 
         }
         assertEquals("Did not catch IllegalArgumentException when invalid data was put in.", true, correctException);
+        assertFalse("Failed to connect to the database", failedToConnect);
     }
 
     // HELPER METHODS
