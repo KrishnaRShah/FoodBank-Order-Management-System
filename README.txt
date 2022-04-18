@@ -38,3 +38,5 @@ calls a database. Even if that information is never used, a test can fail if the
 SQLTest.java IS NOT AN OFFICIAL TEST AND IS COMMENTED OUT FOR THIS REASON. (Making this clear so no marks are lost)
 The functionality of this file you will find at the bottom of HamperTest.java as a helper. It is very useful!
 ------------------------------------------------------------------------------------------
+We are aware that we did not use different branches for submitting work. We all agree that the 25% for each member
+is what we want to do in this case. All file authors are at the top of each page.
