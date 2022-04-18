@@ -40,14 +40,20 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
     static public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
 
+         /**
+    *constructor specifiying GUI window details
+    */
     public Inter(){
-        super("generate hamper");//constructor specifiying GUI window details
+        super("generate hamper");
         createWindow();
         setSize(550,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-    public void createWindow(){//this method instantiates all fields and adds them into the GUI window to be visible by the user
+    
+     /**
+    *this method instantiates all fields and adds them into the GUI window to be visible by the user
+    */
+    public void createWindow(){
         inst=new JLabel("enter required information to generate hamper, please enter only numeric characters (0-9)");
         aFL=new JLabel("enter number of adult females");
         aML=new JLabel("                      enter number of adult males");
@@ -97,8 +103,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         this.add(submitPanel,BorderLayout.SOUTH);
         
     }
-
-    public void actionPerformed(ActionEvent event){//this function specifies procedure of the GUI when an action is performed
+      /**
+    *this function specifies procedure of the GUI when an action is performed
+    */
+    public void actionPerformed(ActionEvent event){
 
         
 
@@ -135,8 +143,11 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             numberOfHampers.clear();//once order is done, clear out contents of order to restart process
         }
     }
-
-    private boolean validateIn(){//method to check for input being only numerical characters
+    
+      /**
+    *method to check for input being only numerical characters
+    */
+    private boolean validateIn(){
         String regex="[0-9]+";
         Pattern p=Pattern.compile(regex);
         Matcher f=p.matcher(adultFemale);
@@ -157,8 +168,12 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
     }
     public void mouseReleased(MouseEvent event){}
-   
-    public void mouseClicked(MouseEvent event){//specifies function of GUI when mouse is clicked on the GUI
+    
+    
+    /**
+    *specifies function of GUI when mouse is clicked on the GUI
+    */
+    public void mouseClicked(MouseEvent event){
         if (event.getSource().equals(femaleInput)){
             femaleInput.setText("");//clears out old input to ease the process of making a new order
         }
@@ -179,7 +194,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 *Starting point
 *calls interface to begin GUI process
 */
-    public static void main(String args[]){//starting point
+    public static void main(String args[]){
        
         EventQueue.invokeLater(()->{
             new Inter().setVisible(true);
