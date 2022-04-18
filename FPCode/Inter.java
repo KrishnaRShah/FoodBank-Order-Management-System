@@ -1,7 +1,7 @@
 /**
  * @author German Fonseca 30061209
  * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
- * @version 1.4 
+ * @version 1.8 
  * @since 0.0
  */
 
@@ -17,23 +17,28 @@ import java.util.ArrayList;
 
 
 public class Inter extends JFrame implements ActionListener, MouseListener {
-    //static public int[] clients=new int[4];
+//static public int[] clients=new int[4];
     
     static private String adultFemale;
     static private String adultMale;
     static private String childOver8; //Fields where information about how many people are in each hamper will be stored
     static private String childUnder8;
+    static private String daysNeeded;
     
     static private JLabel inst;
     static private JLabel aFL;
     static private JLabel aML;//Jlabels to inform user on how to use GUI
     static private JLabel cOL;
     static private JLabel cUL;
+    static private JLabel dN;
+
     
     static private JTextField femaleInput;
     static private JTextField maleInput;
     static private JTextField childUnder;//Contain user input
     static private JTextField childOver;
+    static private JTextField daysInput;
+
 
     static private JButton submit;//button to add hamoer to order
     static private JButton newOrder;//button to specify end of order
@@ -59,11 +64,15 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         aML=new JLabel("                      enter number of adult males");
         cOL=new JLabel("enter number of children over 8");
         cUL=new JLabel("                              enter number of children under 8");
+        dN=new JLabel("                        enter number of days needed for this hamper");
+
 
         femaleInput=new JTextField("",15);
         maleInput=new JTextField("",15);
         childOver=new JTextField("",15);
         childUnder=new JTextField("",15);
+        daysInput=new JTextField("",15);
+
 
         femaleInput.addMouseListener(this);
         maleInput.addMouseListener(this);
@@ -95,6 +104,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         panel2.add(childOver);
         panel2.add(cUL);
         panel2.add(childUnder);
+        panel2.add(dN);
+        panel2.add(daysInput);
         submitPanel.add(submit);
         submitPanel.add(newOrder);
 
@@ -114,11 +125,13 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         adultMale=(maleInput.getText());
         childOver8=(childOver.getText());
         childUnder8=(childUnder.getText());
+        daysNeeded=(daysInput.getText());
+
 
         if(event.getSource()==submit){//if hamper is submitted, do the foollowing
 
             if(validateIn()){//check that input is made up of numerical characters
-                numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
+                numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8),Integer.parseInt(daysNeeded)});
                 //if input is valid, add input to the list of hampers
             }
   
@@ -131,9 +144,9 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
             Order a;
             try{//try to make a new order with the client number input 
 
-                // NEED DAYS NEEDED!!!
-            a=new Order(numberOfHampers, daysNeeded);
-                // NEED DAYS NEEDED!!!
+                
+            a=new Order(numberOfHampers);
+                
                 
             a.printToTXT();//once order is complete, create output on a txt file
             JOptionPane.showMessageDialog(this,"your order is complete");//tell user order is complete
@@ -158,7 +171,8 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         Matcher m=p.matcher(adultMale);
         Matcher o=p.matcher(childOver8);
         Matcher u=p.matcher(childUnder8);
-        if(f.matches()&&m.matches()&&o.matches()&&u.matches()){
+        Matcher d=p.matcher(daysNeeded);
+        if(f.matches()&&m.matches()&&o.matches()&&u.matches()&&d.matches()){
             return true;
         }
         else{
