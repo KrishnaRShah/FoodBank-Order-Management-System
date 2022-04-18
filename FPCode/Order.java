@@ -107,7 +107,11 @@ public class Order implements Output{
             pw.println();
             pw.print("Hamper ");
             pw.print(k+1);
+            pw.print(" (for ");
+            pw.print(clientsPerHamper.get(k)[4]);
+            pw.print(" days)");
             pw.print(": ");
+            
             if(clientsPerHamper.get(k)[0]!=0){
                 pw.print("Adult Males: ");
                 pw.print(clientsPerHamper.get(k)[0]);
