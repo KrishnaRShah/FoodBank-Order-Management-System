@@ -21,33 +21,33 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     
     static private String adultFemale;
     static private String adultMale;
-    static private String childOver8;
+    static private String childOver8; //Fields where information about how many people are in each hamper will be stored
     static private String childUnder8;
     
     static private JLabel inst;
     static private JLabel aFL;
-    static private JLabel aML;
+    static private JLabel aML;//Jlabels to inform user on how to use GUI
     static private JLabel cOL;
     static private JLabel cUL;
     
     static private JTextField femaleInput;
     static private JTextField maleInput;
-    static private JTextField childUnder;
+    static private JTextField childUnder;//Contain user input
     static private JTextField childOver;
 
-    static private JButton submit;
-    static private JButton newOrder;
+    static private JButton submit;//button to add hamoer to order
+    static private JButton newOrder;//button to specify end of order
 
     static public ArrayList<int[]> numberOfHampers=new ArrayList<int[]>();
 
     public Inter(){
-        super("generate hamper");
+        super("generate hamper");//constructor specifiying GUI window details
         createWindow();
         setSize(550,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void createWindow(){
+    public void createWindow(){//this method instantiates all fields and adds them into the GUI window to be visible by the user
         inst=new JLabel("enter required information to generate hamper, please enter only numeric characters (0-9)");
         aFL=new JLabel("enter number of adult females");
         aML=new JLabel("                      enter number of adult males");
@@ -61,7 +61,7 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
         femaleInput.addMouseListener(this);
         maleInput.addMouseListener(this);
-        childOver.addMouseListener(this);
+        childOver.addMouseListener(this);//add mouse listeners to to text fields used for user input
         childUnder.addMouseListener(this);
 
         submit=new JButton("submit");
@@ -69,18 +69,18 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         newOrder=new JButton("end current order");
         newOrder.addActionListener(this);
         
-        JPanel headerPanel=new JPanel();
+        JPanel headerPanel=new JPanel();//panel that will contain text instructions on use of the GUI
         headerPanel.setLayout(new FlowLayout());
 
-        JPanel panel2=new JPanel();
+        JPanel panel2=new JPanel();//this pannel will allow for input to be received from user 
         panel2.setLayout(new FlowLayout());
 
-        JPanel submitPanel=new JPanel();
+        JPanel submitPanel=new JPanel();//this panel will confirm the input of user and begin forming hampers in an order
         submitPanel.setLayout(new FlowLayout());
         JPanel newOrderPanel=new JPanel();
         newOrderPanel.setLayout(new FlowLayout());
         
-        headerPanel.add(inst);
+        headerPanel.add(inst);//adding all instantiations to GUI window
         panel2.add(aFL);
         panel2.add(femaleInput);
         panel2.add(aML);
@@ -92,50 +92,51 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
         submitPanel.add(submit);
         submitPanel.add(newOrder);
 
-        this.add(headerPanel,BorderLayout.NORTH);
+        this.add(headerPanel,BorderLayout.NORTH);//specifying placement of the panels
         this.add(panel2,BorderLayout.CENTER);
         this.add(submitPanel,BorderLayout.SOUTH);
         
     }
 
-    public void actionPerformed(ActionEvent event){
+    public void actionPerformed(ActionEvent event){//this function specifies procedure of the GUI when an action is performed
 
         
 
-        adultFemale=(femaleInput.getText());
+        adultFemale=(femaleInput.getText());//takes input from text fields and stores input in these fields
         adultMale=(maleInput.getText());
         childOver8=(childOver.getText());
         childUnder8=(childUnder.getText());
 
-        if(event.getSource()==submit){
+        if(event.getSource()==submit){//if hamper is submitted, do the foollowing
 
-            if(validateIn()){
+            if(validateIn()){//check that input is made up of numerical characters
                 numberOfHampers.add(new int[]{Integer.parseInt(adultMale),Integer.parseInt(adultFemale),Integer.parseInt(childOver8),Integer.parseInt(childUnder8)});
+                //if input is valid, add input to the list of hampers
             }
   
-            else{
-                JOptionPane.showMessageDialog(this,"illegal character entered");
+            else{//if input is invalid, tell user input is invalid and allow them to try again
+                JOptionPane.showMessageDialog(this,"illegal character entered, please use only numerical characters (0-9)");
             }
         }
-        if(event.getSource()==newOrder){
-            JOptionPane.showMessageDialog(this,"please wait while order is processed");
+        if(event.getSource()==newOrder){//if the end order button is pressed do the following:
+            JOptionPane.showMessageDialog(this,"please wait while order is processed");//tell user to be patient to allow the order to be processed 
             Order a;
-            try{
+            try{//try to make a new order with the client number input 
             a=new Order(numberOfHampers);
-            a.printToTXT();
-            JOptionPane.showMessageDialog(this,"your order is complete");
+            a.printToTXT();//once order is complete, create output on a txt file
+            JOptionPane.showMessageDialog(this,"your order is complete");//tell user order is complete
         }
-            catch (NotEnoughFoodException e){
-                JOptionPane.showMessageDialog(this,"not enough food to fill your order");
+            catch (NotEnoughFoodException e){//if not enough food is available to fill out order, do the following:
+                JOptionPane.showMessageDialog(this,"not enough food to fill your order");//tell user not enough food is available
                 System.out.println("SUCCESSFUL ERROR: NotEnoughFoodException was thrown.");
-                Order b=new Order();
-                b.printError();
+                Order b=new Order();//instantiate new order to generate output file
+                b.printError();//generate error output file
             }
-            numberOfHampers.clear();
+            numberOfHampers.clear();//once order is done, clear out contents of order to restart process
         }
     }
 
-    private boolean validateIn(){
+    private boolean validateIn(){//method to check for input being only numerical characters
         String regex="[0-9]+";
         Pattern p=Pattern.compile(regex);
         Matcher f=p.matcher(adultFemale);
@@ -157,9 +158,9 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
     }
     public void mouseReleased(MouseEvent event){}
    
-    public void mouseClicked(MouseEvent event){
+    public void mouseClicked(MouseEvent event){//specifies function of GUI when mouse is clicked on the GUI
         if (event.getSource().equals(femaleInput)){
-            femaleInput.setText("");
+            femaleInput.setText("");//clears out old input to ease the process of making a new order
         }
         if (event.getSource().equals(maleInput)){
             maleInput.setText("");
@@ -173,10 +174,10 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]){//starting point
        
         EventQueue.invokeLater(()->{
-            new Inter().setVisible(true);
+            new Inter().setVisible(true);//call interface to begin GUI process
         });
 
     
