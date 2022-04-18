@@ -174,10 +174,15 @@ public class Inter extends JFrame implements ActionListener, MouseListener {
 
     }
 
+
+/**
+*Starting point
+*calls interface to begin GUI process
+*/
     public static void main(String args[]){//starting point
        
         EventQueue.invokeLater(()->{
-            new Inter().setVisible(true);//call interface to begin GUI process
+            new Inter().setVisible(true);
         });
 
     
