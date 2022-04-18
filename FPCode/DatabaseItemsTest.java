@@ -18,13 +18,17 @@ import static org.junit.Assert.*;
  */
 public class DatabaseItemsTest {
     /**
-     * Constructor test to make sure it actually creates something
+     * Constructor test to make sure it actually creates something. Because method testing is later, it isn't necessary for dbtest to be valid, just not be null.
      */
     @Test 
     public void testConstructor(){
         DatabaseItems dbTest = new DatabaseItems();
         assertNotNull("The Database Constructor does not load in Database items.", dbTest);
     }
+
+    // These tests are no longer needed because the method in which we are calulating the hamper does not need these methods. So there is no use having them
+    // in the tests. However, incase you are curious. If you uncomment the methods out of DatabaseItems and the tests out of here, they (should) work. This was completed
+    // first so hamper could be tested. 
 
     // TEST GETLARGESTITEM... 4 TESTS
     // @Test 
@@ -133,12 +137,13 @@ public class DatabaseItemsTest {
 
 
     /**
-     * This test checks the getter function in DatabaseItems
+     * This tests that the getter returns the correct format, and that all of the elements are in the same order and have the same properties as the database.
+     * This uses the helper functions getTestItemsList and hasSameProperties; Functionality is at the bottom of this file.
      */
     @Test 
     public void testGetDatabaseItems() {
         DatabaseItems dbItems = new DatabaseItems();
-        Items[] expectedValue = getTestItemsList();
+        Items[] expectedValue = getTestItemsList(); // This is a helper method seen below
         Items[] actual = dbItems.getDatabaseItems();
 
         assertEquals("Items are not the same properties.",true, hasSameProperties(expectedValue, actual));
@@ -146,38 +151,45 @@ public class DatabaseItemsTest {
     }
 
     /**
-     * Test for the database update feature (Delete) and refresh auto done after the delete.
+     * This is a combo test for the update (delete) and refresh methods. The reason this is a combo test is because in the updateDatabase method, it will
+     * automatically refresh the "local" databaseItems after it completes. Because of this, either the database didn't delete an item when it should have 
+     * or the refresh didn't occur. How ever because the refresh needs to occur in order for there to be shown a difference, they need to be combined into one.
+     * With that being said, if the getter test above passed, then refresh is fine because refresh is also in the constructor. If it refreshes properly to 
+     * set the constructor, then it is safe to say that the delete is the issue. If the getter test above failed, then it can be assumed that refresh maybe the
+     * issue here as well.
      */
     @Test 
     public void testUpdateDatabaseAndRefreshDatabaseItems(){
         DatabaseItems dbtestItems = new DatabaseItems();
         boolean exceptionCatch = false;
-        Items[] testVector = dbtestItems.getDatabaseItems();
+        boolean completeFailure = false;
+        Items[] testVector = dbtestItems.getDatabaseItems(); // will be erased, its just something
         try {
             dbtestItems.updateDatabase(getItemsList()); // The refresh happens automatically at the end of updateDatabase
-            testVector = dbtestItems.getDatabaseItems();
+            testVector = dbtestItems.getDatabaseItems(); // This should return the 3 correct items using the test set.
         } catch (IllegalArgumentException e) {
             exceptionCatch = true;
         } catch (Exception e) {
-
+            completeFailure = true;
         }
         
         assertEquals("Does not have same items after deletion",true, hasSameProperties(getAfterDeleteItemsList(), testVector));
         assertNotEquals("Database Threw exception when it shouldn't have. (testUpdateDatabaseAndRefreshDatabaseItems)", true, exceptionCatch);
+        assertFalse("An unexpected error occured in testUpdateDatabaseAndRefreshDatabaseItems. This is a big issue.", completeFailure);
     }
 
     //This test is specifically important because if we are deleting items in the hamper that do not exist, something is seriously wrong
-    //This test will also test the checkForItem method. As such if this passes that passes as well.
     /**
-     * Tests if an illegal argument exception is thrown with bad data to delete. The delete uses unique item ID, so if the ID doesn't exist it throws an illegal
-     * argument exception. This also checks the private method checkForItem
+     * Tests if an IllegalArgumentException is thrown with bad data to delete. The delete uses unique item ID, so if the ID doesn't exist it throws an
+     * IllegalArgumentException. This also checks the private method checkForItem. This uses the helper function getBadItemsList which contains an ID
+     * much greater than any possible test set (590 was chosen at random). 
      */
     @Test 
     public void testUpdateDatabaseBadData(){
         DatabaseItems dbItems = new DatabaseItems();
         boolean correctException = false;
         try {
-            dbItems.updateDatabase(getBadItemsList()); 
+            dbItems.updateDatabase(getBadItemsList()); // Tries to delete the the bad item.
         } catch (IllegalArgumentException e) {
             correctException = true;
         } catch (Exception e){
@@ -287,5 +299,7 @@ public class DatabaseItemsTest {
         }
         return true;
     }
+
+    
 
 }

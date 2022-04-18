@@ -1,14 +1,16 @@
 /**
 * @author Ryan Mailhiot 30080009<a
 * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
-* @version 0.2 
+* @version 1.1 
 * @since 0.0
 */
 
 package FPCode;
 
 /**
- * ClientType enum is used in client to set the type of client. Contains ADULTMALE, ADULTFEMALE, CHILDOVER8, CHILDUNDER8
+ * ClientType enum is used in client to set the type of client. Contains ADULTMALE, ADULTFEMALE, CHILDOVER8, CHILDUNDER8. Each enum will have a
+ * method called "typeAsString" which returns the type of the client as a pre determined string for printing.
+ * @since 0.1
  */
 public enum ClientType {
     ADULTMALE{

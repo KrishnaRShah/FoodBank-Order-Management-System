@@ -9,12 +9,14 @@
 * @since 0.0
 */
 
+// Initial file setup and testing was completed by David Fonseca, database connections (including the constructor) was done by Ryan. Danny helped with debugging
 package FPCode;
 
 import java.sql.*;
 
 public class Client {
 
+    // This enum is a separate file called ClientType.java. It is the exact same.
     // enum ClientType {
     //     ADULTMALE{
     //         public String typeAsString(){
@@ -50,9 +52,11 @@ public class Client {
     /**
      * Constructor for the object Client. Uses the enum "ClientType" for the client type registration. Takes in an id value for
      * the type of client and sets nutrientData, CLIENT_ID and CLIENT_TYPE;
-     * @author Ryan Mailhiot
+     * @author Ryan Mailhiot 30080009<a
+     * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
      * @param id takes a value from 1-4 (inclusive) for the type of client. 1 is Adult Male, 2 is Adult Female, 3 is Child
      * Over 8 years old, 4 is Child under 8 years old.
+     * @since 0.6
      */
     public Client(int id){
 
@@ -160,7 +164,10 @@ public class Client {
     // }
     
     /**
+     * @author Ryan Mailhiot 30080009<a
+     * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
      * Creates an instance called dbConnect to connect to the database and grab the Daily Client Needs. 
+     * @since 0.6
      */
     public void initializeConnection(){
         try {
@@ -173,6 +180,8 @@ public class Client {
     }
 
     /**
+     * @author Ryan Mailhiot 30080009<a
+     * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
      * Closes the dbConnect variable to stop unnecessary leak.
      */
     public void close() {
@@ -185,6 +194,8 @@ public class Client {
     }
 
     /**
+     * @author German (David) Fonseca 30061209<a
+     * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
      * Getter for the nutrientData of the client.
      * @return Nutrients Object
      */
@@ -198,6 +209,8 @@ public class Client {
     // }
     
     /**
+     * @author German (David) Fonseca 30061209<a
+     * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
      * Getter for the Client ID
      * @return Int
      */
@@ -206,6 +219,8 @@ public class Client {
     }
 
     /**
+     * @author German (David) Fonseca 30061209<a
+     * href="mailto:german.fonseca@ucalgary.ca">german.fonseca@ucalgary.ca</a>
      * Getter for the ClientType
      * @return String
      */
