@@ -3,7 +3,7 @@
  * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
  * @author Danny Picazo 301271082<a
  * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
- * @version 1.0 
+ * @version 2.0 
  * @since 0.0
  */
 
@@ -18,7 +18,7 @@ import java.util.*;
  * 
  * Hamper will build the most efficient "Hamper" of food for the given clients for the days needed. 
  * 
- * UPDATE THE REST OF THIS TO INCLUDE RELEVANT COMMENTS ABOUT HAMPER.
+ * Hamper will also update the database for each hamper it successfully makes.
  */
 public class Hamper{
     public Vector<Client> clientArray;
@@ -29,6 +29,7 @@ public class Hamper{
     /**
      * GUI's constructor for Hamper. Takes in an integer array of size 4 (or atleast reads the first 4 elements) which will be used
      * to construct clients to be used in the calculation of hamper nutrients. 
+     * @author Krishna Shah
      * @param numClientTypes Int array of size 4.
      */
     public Hamper(int[] numClientTypes, int noOfDaysNeeded) throws NotEnoughFoodException{
@@ -109,6 +110,7 @@ public class Hamper{
 
     /**
      * @author Krishna Shah
+     * @author Danny Picazo
      * Calculates the hampers nutrients using the data stored in the clientArray.
      */
     public void calcHamperNutrients(){

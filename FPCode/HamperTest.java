@@ -206,7 +206,8 @@ public class HamperTest {
     }
 
     /**
-     * SQL HELPER FUNCTION: 
+     * HamperTest helper method.
+     * Initializes a connection the small test inventory database. 
      */
     public void initializeConnection(){
         try {
@@ -215,6 +216,10 @@ public class HamperTest {
             e.printStackTrace(); 
         }
     }
+    /**
+     * HamperTest helper method.
+     * Refreshes the test database so that it will not run out of food before testing is finished. 
+     */
     public void refreshDatabase(){
         try {
             initializeConnection();
@@ -261,6 +266,10 @@ public class HamperTest {
             e.printStackTrace();
         }
     }
+    /**
+     * HamperTest helper method.
+     * Returns the small inventory test database stock. 
+     */
     private Items[] getDatabaseTestStock(){
         double[] tomato = {0, 80, 10, 10, 120};
         double[] apple = {0, 100, 0, 0, 624};
