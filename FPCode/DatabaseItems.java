@@ -1,7 +1,7 @@
 /**
 * @author Ryan Mailhiot 30080009<a
 * href="mailto:ryan.mailhiot@ucalgary.ca ">ryan.mailhiot@ucalgary.ca</a>
-* @version 1.5 
+* @version 1.6 
 * @since 0.0 (1.0 is first working version)
 */
 
@@ -31,20 +31,23 @@ public class DatabaseItems {
      * there will be items in the vector after the constructor is called. 
      * @since 0.1
      */
-    protected DatabaseItems(){
+    protected DatabaseItems() throws FailedToConnectException{
         databaseItems = new Vector<Items>(SIZE_VECTOR, INCREMENT_VECTOR);
         refreshDatabaseItems();
     }
 
     /**
      * Creates a connection to the SQL database using the URL, USERNAME and PASSWORD. 
-     * @since 0.1
+     * @since 0.1 updated 1.6
      */
-    public void initializeConnection(){
+    public void initializeConnection() throws FailedToConnectException{
         try {
             dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace(); // THIS NEEDS TO BE CHANGED BECAUSE WE NEED TO BE ABLE TO INTERNALLY HANDLE ERRORS
+            throw new FailedToConnectException("Failed to connect to the Database. Check DBURL, USERNAME, PASSWORD.");
+        }
+        if (dbConnect == null) {
+            throw new FailedToConnectException("Failed to connect to the Database. Check DBURL, USERNAME, PASSWORD.");
         }
     }
 
@@ -55,7 +58,7 @@ public class DatabaseItems {
      * @return null
      * @since 0.3
      */
-    public void refreshDatabaseItems(){
+    public void refreshDatabaseItems() throws FailedToConnectException{
         initializeConnection();
         databaseItems.clear(); // clear the vector so it can be rewritten. 
         Items itemAdd;
@@ -102,7 +105,7 @@ public class DatabaseItems {
      * @since 0.3
      * Updated 1.4
      */
-    public void updateDatabase(Items[] items) throws IllegalArgumentException{
+    public void updateDatabase(Items[] items) throws IllegalArgumentException, FailedToConnectException{
         initializeConnection();
         try {
             // Query information for deleting

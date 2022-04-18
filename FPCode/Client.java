@@ -5,7 +5,7 @@
 * href="mailto:ryan.mailhiot@ucalgary.ca">ryan.mailhiot@ucalgary.ca</a>
 * @author Danny Picazo 301271082<a
 * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
-* @version 0.8 
+* @version 1.3 
 * @since 0.0
 */
 
@@ -58,7 +58,7 @@ public class Client {
      * Over 8 years old, 4 is Child under 8 years old.
      * @since 0.6
      */
-    public Client(int id){
+    public Client(int id) throws FailedToConnectException{
 
         if(id < 1 || id > 4){
             throw new IllegalArgumentException("Client ID is invalid.");
@@ -169,13 +169,17 @@ public class Client {
      * Creates an instance called dbConnect to connect to the database and grab the Daily Client Needs. 
      * @since 0.6
      */
-    public void initializeConnection(){
+    public void initializeConnection()throws FailedToConnectException{
         try {
             dbConnect = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             System.err.println("Unexpected SQL Exception was thrown in initializeConnection in Client." + 
                 " This is most likely because the URL, USERNAME or PASSWORD is incorrect.");
-            e.printStackTrace(); 
+                throw new FailedToConnectException("Failed to connect to the Database. Check DBURL, USERNAME, PASSWORD.");
+        }
+
+        if (dbConnect == null) {
+            throw new FailedToConnectException("Failed to connect to the Database. Check DBURL, USERNAME, PASSWORD.");
         }
     }
 
