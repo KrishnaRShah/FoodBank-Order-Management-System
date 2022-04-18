@@ -3,7 +3,7 @@
  * href="mailto:krishna.shah@ucalgary.ca">krishna.shah@ucalgary.ca</a>
  * @author Danny Picazo 301271082<a
  * href="mailto:daniel.picazo@ucalgary">daniel.picazo@ucalgary.ca</a>
- * @version 0.6 
+ * @version 1.0 
  * @since 0.0
  */
 
