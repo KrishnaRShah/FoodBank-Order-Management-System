@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
     public double otherPercent=15;
     public double totalCalories=1500;
 
-    //example value for grains to test whether an exception will be thrown
+    //example value for grains which goes over percentage limit to test whether an exception will be thrown
     public double badGrainsPercent=40;
 
     public NutrientsTest(){}
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
     }
 
     /**
-    * Constructor test with bad data, that will throw IllegalArgumentExeption
+    * Constructor test with bad data, that should throw IllegalArgumentExeption
     */
     @Test
     public void testNutrientsConstructorInvalidData() {
