@@ -1,9 +1,3 @@
-Hello! This is the final project for group 27, that is:
-Ryan Mailhiot 30080009
-Danny Picazo 301271082
-German (David) Fonseca 30061209
-Krishna Shah 30114067
-
 ------------------------------------------------------------------------------------------
 The compilation of our program is simple. To compile the main program without tests,
 it is required that you use the MySQL connector version 8.0.23. The command we used for
